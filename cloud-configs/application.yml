@@ -1,0 +1,35 @@
+# This file contains the default configurations for all
+# Spring applications connecting to the config-server.
+# The configs given here are for local development and 
+# will be overridden by properties in application-cloud.yml.
+# Every Spring application therefore needs to be deployed with ...
+# 
+# env: 
+#  spring.profiles.active: cloud
+# 
+# ... in their manifest.yml
+
+# Enable Debug Mode
+debug: true
+
+# Logging Levels:
+logging:
+  level: 
+    com.equalitites: DEBUG
+
+# Management Endpoints
+management:
+  endpoints:
+    web.exposure.include: "*"    # expose all actuator web endpoints
+  endpoint:
+    refresh.enabled: true        # enable /actuator/refresh endpoint.
+    health.show-details: always
+
+eureka:
+  client:
+    registryFetchIntervalSeconds: 2 # only for local development.
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    leaseRenewalIntervalInSeconds: 2 # only for local development.
+    healthcheck.enabled: true

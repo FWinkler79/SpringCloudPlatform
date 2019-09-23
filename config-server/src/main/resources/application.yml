@@ -1,0 +1,9 @@
+server.port: ${PORT:8888} # Spring Cloud CLI standard port for config-server
+
+spring:
+  application.name: config-server 
+  cloud: 
+    config.server.git.uri: https://github.com/joshlong/bootiful-microservices-config.git
+   
+    
+

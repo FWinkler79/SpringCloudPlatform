@@ -17,6 +17,7 @@
 * [Reactive Databases](https://r2dbc.io/)
 * [Aeron Protocol](https://github.com/real-logic/aeron/wiki) | [Blog Post](https://medium.com/@pirogov.alexey/aeron-low-latency-transport-protocol-9493f8d504e8)
 * [RSocket and Spring Cloud Gateway](https://content.pivotal.io/slides/welcome-to-the-reactive-revolution-rsocket-and-spring-cloud-gateway-spencer-gibb) | [Older Presentation](https://qconsp.com/system/files/presentation-slides/rsocket_and_spring_cloud_gateway-spencer.gibb_.pdf)
+* [Spring Cloud Gateway RSocket Sample](https://github.com/spencergibb/spring-cloud-gateway-rsocket-sample)
 * [Living on the Edge: Spring Cloud Gateway](https://www.youtube.com/watch?v=jOawuL1Xnwo) (Interesting approach to exposing the Gateway as a Service (broker)!)
 * [Spring Tips: Spring Cloud Gateway](https://www.youtube.com/watch?v=TwVtlNX-2Hs)
 * [Distributed Reactive Streams with RSocket, Reactor, and Spring](https://www.youtube.com/watch?v=WVnAbv65uCU) (great video)

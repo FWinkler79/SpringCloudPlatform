@@ -13,6 +13,7 @@
 
 	<modules>
 		<module>config-server</module>
+		<module>reservation-service</module>
 	</modules>
 
 </project>

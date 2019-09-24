@@ -56,6 +56,11 @@ Note, that Spring Cloud Sleuth and Zipkin also work for message-based communicat
 Project `config-server` is a Spring Boot application that acts as a central configuration server.
 It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) to serve configurations that are stored in a [GitHub repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
 
+It was created using the [Spring Initializr Website](https://start.spring.io/) using the following dependencies:
+* Config Server
+* Zipkin Client
+* Spring Boot Actuator
+
 
 
 # Technologies to use:
@@ -68,6 +73,7 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
 - Tracing:     [Spring Cloud Sleuth / Zipkin](https://spring.io/projects/spring-cloud-sleuth) | [Tutorial](https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin) | [Baeldung Tutorial](https://www.baeldung.com/tracing-services-with-zipkin) | [Video](https://content.pivotal.io/springone-platform-2017/distributed-tracing-latency-analysis-for-your-microservices-grzejszczak-krishna) 
 - Pipelines:   [Cloud Pipelines](https://github.com/CloudPipelines/) | [Why the migration](https://spring.io/blog/2018/11/13/spring-cloud-pipelines-to-cloud-pipelines-migration)
 - Data Access: [Spring Data](https://spring.io/projects/spring-data)
+- REST Docs:   [Spring REST Docs](https://spring.io/projects/spring-restdocs)
 
 # References
 

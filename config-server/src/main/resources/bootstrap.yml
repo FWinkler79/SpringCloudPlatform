@@ -1,2 +1,2 @@
-spring:
+ spring:
   application.name: config-server 

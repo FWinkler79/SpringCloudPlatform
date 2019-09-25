@@ -1,4 +1,4 @@
-server.port: ${PORT:8888} # Spring Cloud CLI standard port for config-server
+server.port: ${PORT:1111} # Spring Cloud CLI standard port for config-server
 
 spring:
   application.name: config-server
@@ -9,11 +9,6 @@ spring:
   sleuth:
     sampler:
       probability: 1.0                           # Should be between 0.0 and 1.0. Usually, 0.1 is the default, meaning that 10% of requests are actually traced. The rest is not.
-
-# Log Level Configurations
-logging:
-  level: 
-    com.netflix: OFF                             # Hide error messages of failing Eureka connection when service starts up. The service will find Eureka later, don't worry. 
 
 # Service Registry Client Configurations 
 eureka:
@@ -29,3 +24,8 @@ info: # /actuator/info
   app:
     name: ${spring.application.name}
     description: "A central configuration server. It's configurations are located here: ${spring.cloud.config.server.git.uri}"
+    
+# Logging Levels:
+logging:
+  level: 
+    com.netflix: OFF

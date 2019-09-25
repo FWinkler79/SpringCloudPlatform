@@ -1,8 +1,25 @@
+server:
+  port: ${PORT:2222}
+
 spring:
   application:
     name: reservation-service
     
   cloud:
     config:
-      uri:
-      - http://localhost:8888  # The location of the central config server. Should come from environment.
+      discovery:
+        enabled: true
+        service-id: config-server # should come from environment
+        
+eureka:
+  client:
+    registryFetchIntervalSeconds: 2 # only for local development.
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    leaseRenewalIntervalInSeconds: 2 # only for local development.
+    
+# Logging Levels:
+logging:
+  level: 
+    com.netflix: OFF

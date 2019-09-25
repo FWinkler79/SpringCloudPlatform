@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: service-registry
+
+server:
+  port: ${PORT:8761}
+ 
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 2  # only for local development. remove this setting in production and thus default to 30 seconds.
+    hostname: ${vcap.application.uris[0]:localhost}
+  client:
+    registerWithEureka: false
+    fetchRegistry:      false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+
+---
+spring.profiles: cloud
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 30 # make sure in the cloud we use proper default values.
+    ## This information will be part of the InstanceInfo returned by DiscoveryClient / EurekaClient.
+    ## Unfortunately, these have to be specified explicitly, since Eureka creates these URLs wrongly
+    ## when running on CF. 
+    ## See: https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html
+    homePageUrl:          https://${vcap.application.uris[0]:localhost}/   
+    statusPageUrl:        https://${vcap.application.uris[0]:localhost}/actuator/info 
+    healthCheckUrl:       https://${vcap.application.uris[0]:localhost}/actuator/health
+    secureHealthCheckUrl: https://${vcap.application.uris[0]:localhost}/actuator/health
+    ## set the host name explicitly when in Cloud Foundry.
+    hostname:             ${vcap.application.uris[0]:localhost}
+    nonSecurePortEnabled: false
+    securePortEnabled:    true
+    securePort:           443
+    metadata-map:  
+      # Adding information about the application GUID and app instance index to 
+      # each instance metadata. This could be used for setting the X-CF-APP-INSTANCE header
+      # to instruct Go-Router where to route.
+      cfAppGuid:       ${vcap.application.application_id}
+      cfInstanceIndex: ${INSTANCE_INDEX}

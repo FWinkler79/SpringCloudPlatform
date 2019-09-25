@@ -9,11 +9,13 @@
     <version>2.2.0.M6</version>
     <relativePath /> <!-- lookup parent from repository -->
   </parent>
+  
   <groupId>com.equalities.cloud</groupId>
   <artifactId>reservation-service</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
   <name>reservation-service</name>
-  <description>A service to place and query table reservations</description>
+  <description>A service to place and query table reservations.</description>
 
   <properties>
     <java.version>11</java.version>

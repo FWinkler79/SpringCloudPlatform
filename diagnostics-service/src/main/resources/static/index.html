@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Diagnostics</title>
+<base href="/" />
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to Diagnostics!</h1>
+    <p>
+    This service provides an easy way to lookup service information from Eureka.<br/>
+    You use it by the following URL: <a href="/lookup/serviceID">/lookup/serviceID</a> where serviceID is the ID of the respective service as declared in Eureka.
+    </p>
+    <p>
+    For example, the following URLs show information about the respective registered services
+    <ol>
+      <li> <a href="/lookup/config-server">Config-Server</a> </li>
+      <li> <a href="/lookup/reservation-service">Reservation-Service</a> </li>
+      <li> <a href="/lookup/diagnostics-service">Diagnostics service itself</a> </li>
+    </ol>
+    </p>
+  </div>
+</body>
+</html>

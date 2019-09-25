@@ -1,4 +1,4 @@
-package com.equalities.cloud.reservationservice;
+package com.equalities.cloud.reservation.service;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

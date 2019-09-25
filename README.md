@@ -34,7 +34,7 @@ $ spring cloud eureka # bring up a Eureka service registry locally.
 
 For more information see the [Spring Cloud CLI documentation](https://cloud.spring.io/spring-cloud-cli/reference/html/).
 
-# Starting or Deploying ZipKin Server
+# Starting or Deploying Zipkin Server
 
 Many of the services of this project use Spring Cloud Sleuth](https://spring.io/projects/spring-cloud-sleuth) with an integration with [Zipkin](https://zipkin.io/) to write trace logs in order to trace requests analyce latencies.
 
@@ -50,6 +50,17 @@ This will pull and start a Zipkin server container and once it is started you ca
 As services will be making requests and logging traces, you will see them in the Zipkin UI. This allows you not only to see which requests are being sent and received but also how long they took and if they were successful or not.
 
 Note, that Spring Cloud Sleuth and Zipkin also work for message-based communication, e.g. using RabbitMQ. See the Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/2.1.3.RELEASE/single/spring-cloud-sleuth.html#_sleuth_with_zipkin_over_rabbitmq_or_kafka) documentation for details.
+
+# Service Startup Order
+
+Required startup order (ideally):
+1. Zipkin server
+2. service-registry 
+3. config-server instances 
+4. services (i.e. service-registry clients)
+
+For 1. - 3. the order does not matter. They can be started in any order and will find one another.
+Services need to be started last, as they will require configuration for startup coming from the config-server.
 
 # Config Server
 
@@ -68,6 +79,8 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
 - Is a Eureka client, i.e. registers itself with service registry.
 - Services find / lookup config-server via Eureka.
 - Allows more than one config-server instances to run and be addressed by one logical service name.
+- config-server (and all its potential instances) need to start before any service that reads configuration is started.
+  (See [this Spring Cloud Config issue](https://github.com/spring-cloud/spring-cloud-config/issues/514).)
 
 # Service Registry
 
@@ -75,6 +88,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 
 * Eureka Server
 * Config Client
+* Zipkin Client
 * Spring Boot Actuator
 
 - Currently does not use configs from config-server but brings its own.
@@ -100,6 +114,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
 
 * Eureka Discovery Client
+* Zipkin Client
 * Spring Boot Starter Web
 * Spring Boot Actuator
 

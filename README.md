@@ -63,11 +63,11 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 Project `config-server` is a Spring Boot application that acts as a central configuration server.
 It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) to serve configurations that are stored in a [GitHub repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
 
-- Starts up first
 - Has its own configurations (not loaded from github)
 - Uses Zipkin / Sleuth to report tracing information.
-- Is a Eureka client, i.e. registers itself with service registry. 
-  BUT: only later, since service-registry depends on configs served by config-server.
+- Is a Eureka client, i.e. registers itself with service registry.
+- Services find / lookup config-server via Eureka.
+- Allows more than one config-server instances to run and be addressed by one logical service name.
 
 # Service Registry
 
@@ -77,8 +77,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Config Client
 * Spring Boot Actuator
 
-- Uses configs from config-server to configure itself.
-- Must start independently of config-server.
+- Currently does not use configs from config-server but brings its own.
+- Startup is independent from config-server
 
 # Reservation Service
 
@@ -94,6 +94,16 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Eureka Discovery Client
 * Spring Boot Actuator
 * RSocket
+
+# Diagnostics Service
+
+This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+
+* Eureka Discovery Client
+* Spring Boot Starter Web
+* Spring Boot Actuator
+
+Additionally references WebJars to provide static UI content.
 
 # Technologies to use:
 

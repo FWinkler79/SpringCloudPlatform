@@ -64,6 +64,8 @@ Services need to be started last, as they will require configuration for startup
 
 # Config Server
 
+[Access in Browser](http://localhost:1111/service/master_or_profile)
+
 This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
 
 * Config Server
@@ -84,6 +86,8 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
 
 # Service Registry
 
+[Access in Browser](http://localhost:8761/)
+
 This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
 
 * Eureka Server
@@ -95,6 +99,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 - Startup is independent from config-server
 
 # Reservation Service
+
+[Access in Browser](http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc)
 
 This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
 
@@ -110,6 +116,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * RSocket
 
 # Diagnostics Service
+
+[Access in Browser](http://localhost:8777/)
 
 This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
 

@@ -1,4 +1,4 @@
-package com.equalities.cloud.reservationservice;
+package com.equalities.cloud.reservation.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

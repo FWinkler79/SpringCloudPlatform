@@ -22,4 +22,4 @@ eureka:
 # Logging Levels:
 logging:
   level: 
-    com.netflix: OFF
+    com.netflix: DEBUG

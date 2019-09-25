@@ -53,15 +53,38 @@ Note, that Spring Cloud Sleuth and Zipkin also work for message-based communicat
 
 # Config Server
 
+This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+
+* Config Server
+* Zipkin Client
+* Eureka Discovery Client
+* Spring Boot Actuator
+
 Project `config-server` is a Spring Boot application that acts as a central configuration server.
 It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) to serve configurations that are stored in a [GitHub repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
 
-It was created using the [Spring Initializr Website](https://start.spring.io/) using the following dependencies:
-* Config Server
-* Zipkin Client
+# Service Registry
+
+This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+
+* Eureka Server
+* Config Client
 * Spring Boot Actuator
 
+# Reservation Service
 
+This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+
+* Spring Reactive Web
+* Rest Repositories
+* Spring REST Docs
+* Spring Data JPA
+* H2 Database
+* Config Client
+* Zipkin Client
+* Eureka Discovery Client
+* Spring Boot Actuator
+* RSocket
 
 # Technologies to use:
 
@@ -92,3 +115,5 @@ It was created using the [Spring Initializr Website](https://start.spring.io/) u
 * [Project Reactor](https://projectreactor.io/)
 * [RxJava]()
 * [Spring Boot CLI Installation](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-manual-cli-installation)
+* [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
+* [Open Tracing Initiative](https://github.com/opentracing)

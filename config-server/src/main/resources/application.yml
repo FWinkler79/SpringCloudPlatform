@@ -1,9 +1,31 @@
 server.port: ${PORT:8888} # Spring Cloud CLI standard port for config-server
 
 spring:
+  application.name: config-server
+  # Config Server Configurations
   cloud:
     config.server.git.uri: https://github.com/FWinkler79/SpringCloudPlatform-Configs.git
-  
+  # Tracing Configurations
   sleuth:
     sampler:
-      probability: 1.0
+      probability: 1.0                           # Should be between 0.0 and 1.0. Usually, 0.1 is the default, meaning that 10% of requests are actually traced. The rest is not.
+
+# Log Level Configurations
+logging:
+  level: 
+    com.netflix: OFF                             # Hide error messages of failing Eureka connection when service starts up. The service will find Eureka later, don't worry. 
+
+# Service Registry Client Configurations 
+eureka:
+  client:
+    registryFetchIntervalSeconds: 2              # only for local development.
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka  # Should come from environment (using a 'cloud' profile)
+  instance:
+    leaseRenewalIntervalInSeconds: 2             # only for local development.
+    
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    name: ${spring.application.name}
+    description: "A central configuration server. It's configurations are located here: ${spring.cloud.config.server.git.uri}"

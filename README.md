@@ -45,19 +45,41 @@ The easiest way to run a Zipkin server is to use Docker:
 docker run -p 9411:9411 --name zipkinServer openzipkin/zipkin
 ```
 
+... or ...
+
+```bash
+./scripts/startZipkin.sh
+```
+
 This will pull and start a Zipkin server container and once it is started you can access its UI using the link http://localhost:9411/zipkin.
 
 As services will be making requests and logging traces, you will see them in the Zipkin UI. This allows you not only to see which requests are being sent and received but also how long they took and if they were successful or not.
 
 Note, that Spring Cloud Sleuth and Zipkin also work for message-based communication, e.g. using RabbitMQ. See the Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/2.1.3.RELEASE/single/spring-cloud-sleuth.html#_sleuth_with_zipkin_over_rabbitmq_or_kafka) documentation for details.
 
+# Starting or Deploying Message Broker
+
+```bash
+docker run -d --hostname my-rabbit --name rabbitBroker -p 15672:15672 -p 5672:5672 rabbitmq:3-management
+```
+
+... or ...
+
+```bash
+./scripts/startRabbit.sh
+```
+
+Once started you can access its UI using http://localhost:15672/#/.  
+Username: guest, password: guest.
+
 # Service Startup Order
 
 Required startup order (ideally):
 1. Zipkin server
-2. service-registry 
-3. config-server instances 
-4. services (i.e. service-registry clients)
+2. RabbitMQ
+3. service-registry 
+4. config-server instances 
+5. services (i.e. service-registry clients)
 
 For 1. - 3. the order does not really matter. They can be started in any order and will find one another.
 Services need to be started last, as they will require configuration for startup coming from the config-server.
@@ -72,6 +94,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Zipkin Client
 * Eureka Discovery Client
 * Spring Boot Actuator
+* Cloud Bus (Adds `spring-cloud-bus`)
+* Spring for RabbitMQ (adds `spring-boot-starter-amqp`, and `spring-cloud-stream-binder-rabbit` for Spring Cloud Bus)
 
 Project `config-server` is a Spring Boot application that acts as a central configuration server.
 It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) to serve configurations that are stored in a [GitHub repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
@@ -88,6 +112,9 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
   - profile: active spring profile
   - label: usually `master` but can be any git tag, commit ID or branch name.
   - see [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) and [Locating Remote Configuration Resources](https://cloud.spring.io/spring-cloud-config/reference/html/#_locating_remote_configuration_resources)
+- Uses Spring Cloud Bus, RabbitMQ and Spring Cloud Config Monitor to expose an `/monitor` endpoint which can be registered as a GitHub WebHook. Every time the configuration changes in GitHub, GitHub sends an event to the `/monitor` endpoint.
+  The controller behind the `/monitor` endpoint fires a refresh event via the Spring Cloud Bus (using RabbitMQ as the signalling layer), BUT: only to the service instances that are affected by the change in GitHub (based on Eureka service registry).
+  Services refresh automatically with changes in the configurations being pushed to GitHub!
 
 ## Updating Configs
 
@@ -120,7 +147,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 
 * Spring Reactive Web
 * Rest Repositories
-* Spring REST Docs
+* Cloud Bus (Adds `spring-cloud-bus`)
+* Spring for RabbitMQ (adds `spring-boot-starter-amqp`, and `spring-cloud-stream-binder-rabbit` for Spring Cloud Bus)
 * Spring Data JPA
 * H2 Database
 * Config Client
@@ -128,6 +156,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Eureka Discovery Client
 * Spring Boot Actuator
 * RSocket
+* Spring REST Docs
 
 # Diagnostics Service
 
@@ -146,7 +175,7 @@ Additionally references WebJars to provide static UI content.
 
 - Protocol:    [RSocket](http://rsocket.io/) | [FAQ](http://rsocket.io/docs/FAQ) | [Motivation](http://rsocket.io/docs/Motivations) | [Github Repos](https://github.com/rsocket)
 - Gateway:     [Spring Cloud Gateway](https://github.com/spring-cloud/spring-cloud-gateway)
-- Configs:     [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) in combination with Git
+- Configs:     [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) in combination with Git | [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus)
 - Testing:     [Spring Cloud Contract](https://spring.io/projects/spring-cloud-contract)
 - Development: [Spring Cloud CLI](https://cloud.spring.io/spring-cloud-cli/reference/html/)
 - Tracing:     [Spring Cloud Sleuth / Zipkin](https://spring.io/projects/spring-cloud-sleuth) | [Tutorial](https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin) | [Baeldung Tutorial](https://www.baeldung.com/tracing-services-with-zipkin) | [Video](https://content.pivotal.io/springone-platform-2017/distributed-tracing-latency-analysis-for-your-microservices-grzejszczak-krishna) 
@@ -174,3 +203,4 @@ Additionally references WebJars to provide static UI content.
 * [Spring Boot CLI Installation](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-manual-cli-installation)
 * [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
 * [Open Tracing Initiative](https://github.com/opentracing)
+* [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus)

@@ -10,7 +10,7 @@ spring:
       discovery:
         enabled: true
         service-id: config-server # should come from environment
-        
+                
 eureka:
   client:
     serviceUrl:

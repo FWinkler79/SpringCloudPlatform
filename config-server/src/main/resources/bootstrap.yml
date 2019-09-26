@@ -17,6 +17,9 @@ spring:
         composite:
           - type: git
             uri: https://github.com/FWinkler79/SpringCloudPlatform-Configs.git
+            #For internal GitHub - Required for Demo showing auto-refreshing services on config changes.
+            #uri: https://github.wdf.sap.corp/d056076/INTERNAL-SpringCloudPlatform-Configs.git
+            #skipSslValidation: true
             deleteUntrackedBranches: true
 #            Alternative cloning directory - By default configs are cloned to a temp dir. 
 #            If this were to be deleted while the server is running, properties would go missing.

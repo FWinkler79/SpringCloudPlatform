@@ -83,6 +83,20 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
 - Allows more than one config-server instances to run and be addressed by one logical service name.
 - config-server (and all its potential instances) need to start before any service that reads configuration is started.
   (See [this Spring Cloud Config issue](https://github.com/spring-cloud/spring-cloud-config/issues/514).)
+- Configs are loaded using the following URL pattern `/{name}/{profile}/{label}` where
+  - name: service ID
+  - profile: active spring profile
+  - label: usually `master` but can be any git tag, commit ID or branch name.
+  - see [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) and [Locating Remote Configuration Resources](https://cloud.spring.io/spring-cloud-config/reference/html/#_locating_remote_configuration_resources)
+
+## Updating Configs
+
+Update files, push to GitHub, then refresh services that need updated configs.
+
+Actuator endpoints:
+- For debugging: `/actuator/env` and `/actuator/health`
+- For Refreshing: `/actuator/refresh` - POST only. Send empty POST request. Receive list of changed properties (delta) after refresh.
+
 
 # Service Registry
 
@@ -139,6 +153,7 @@ Additionally references WebJars to provide static UI content.
 - Pipelines:   [Cloud Pipelines](https://github.com/CloudPipelines/) | [Why the migration](https://spring.io/blog/2018/11/13/spring-cloud-pipelines-to-cloud-pipelines-migration)
 - Data Access: [Spring Data](https://spring.io/projects/spring-data)
 - REST Docs:   [Spring REST Docs](https://spring.io/projects/spring-restdocs)
+- Secure Password Storage: [Spring Vault](https://spring.io/projects/spring-vault) | [Vault](https://www.vaultproject.io/) | [Vault Docker Image](https://hub.docker.com/_/vault)
 
 # References
 

@@ -13,13 +13,5 @@ spring:
         
 eureka:
   client:
-    registryFetchIntervalSeconds: 2 # only for local development.
     serviceUrl:
       defaultZone: http://localhost:8761/eureka
-  instance:
-    leaseRenewalIntervalInSeconds: 2 # only for local development.
-    
-# Logging Levels:
-logging:
-  level: 
-    com.netflix: DEBUG

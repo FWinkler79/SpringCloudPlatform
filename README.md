@@ -59,7 +59,7 @@ Required startup order (ideally):
 3. config-server instances 
 4. services (i.e. service-registry clients)
 
-For 1. - 3. the order does not matter. They can be started in any order and will find one another.
+For 1. - 3. the order does not really matter. They can be started in any order and will find one another.
 Services need to be started last, as they will require configuration for startup coming from the config-server.
 
 # Config Server

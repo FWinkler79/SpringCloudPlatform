@@ -203,4 +203,4 @@ Additionally references WebJars to provide static UI content.
 * [Spring Boot CLI Installation](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-manual-cli-installation)
 * [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
 * [Open Tracing Initiative](https://github.com/opentracing)
-* [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus)
+* [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus) | [Baeldung Tutorial](https://www.baeldung.com/spring-cloud-bus)

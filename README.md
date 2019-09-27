@@ -115,6 +115,9 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
 - Uses Spring Cloud Bus, RabbitMQ and Spring Cloud Config Monitor to expose an `/monitor` endpoint which can be registered as a GitHub WebHook. Every time the configuration changes in GitHub, GitHub sends an event to the `/monitor` endpoint.
   The controller behind the `/monitor` endpoint fires a refresh event via the Spring Cloud Bus (using RabbitMQ as the signalling layer), BUT: only to the service instances that are affected by the change in GitHub (based on Eureka service registry).
   Services refresh automatically with changes in the configurations being pushed to GitHub!
+- Exposes http://localhost:1111/actuator/bus-refresh endpoint, to refresh all services on the bus at once. See also: http://localhost:1111/actuator/bus-env where you could post key-value pairs to add to every service's environment.
+  See also [addressing of individual service instance](https://cloud.spring.io/spring-cloud-bus/reference/html/index.html#addressing-an-instance).
+- Use http://smee.io to forward WebHook events to localhost.
 
 ## Updating Configs
 

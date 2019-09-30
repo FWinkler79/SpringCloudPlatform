@@ -1,7 +1,5 @@
 server.port: ${PORT:1111} # Spring Cloud CLI standard port for config-server
 
-debug: true
-
 spring:
   application.name: config-server
   
@@ -18,17 +16,19 @@ spring:
         # See: https://cloud.spring.io/spring-cloud-config/reference/html/#_embedding_the_config_server
         bootstrap: true
         composite:
-          # Hashicorp Vault repository for storage and reference of secrets / credentials.
-          - type: vault 
-            host: localhost
-            port: 8200
-            kvVersion: 2
           # GitHub repository for bootstrapping and runtime configurations
           - type: git
             uri: https://github.com/FWinkler79/SpringCloudPlatform-Configs.git
             deleteUntrackedBranches: true
             #For internal GitHub URIs:
             #skipSslValidation: true
+            
+#          # Hashicorp Vault repository for storage and reference of secrets / credentials.
+#          - type: vault 
+#            host: localhost
+#            port: 8200
+#            kvVersion: 2
+#            token: root
 
 # Alterntatives for 'spring.cloud.config.server.git' configurations:
 #

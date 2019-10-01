@@ -159,7 +159,6 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Eureka Discovery Client
 * Spring Boot Actuator
 * RSocket
-* Spring REST Docs
 
 # Diagnostics Service
 
@@ -207,3 +206,6 @@ Additionally references WebJars to provide static UI content.
 * [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
 * [Open Tracing Initiative](https://github.com/opentracing)
 * [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus) | [Baeldung Tutorial](https://www.baeldung.com/spring-cloud-bus)
+* [RSocket Support in Spring 5.2](https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket) (the basis for Spring Boot RSocket support)
+* [RSocket Support in Spring Boot 2.2](https://docs.spring.io/spring-boot/docs/2.2.0.M6/reference/html/spring-boot-features.html#boot-features-rsocket)
+* [RSocket Support in Spring Security](https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/htmlsingle/#rsocket)

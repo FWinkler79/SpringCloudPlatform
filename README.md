@@ -209,3 +209,5 @@ Additionally references WebJars to provide static UI content.
 * [RSocket Support in Spring 5.2](https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket) (the basis for Spring Boot RSocket support)
 * [RSocket Support in Spring Boot 2.2](https://docs.spring.io/spring-boot/docs/2.2.0.M6/reference/html/spring-boot-features.html#boot-features-rsocket)
 * [RSocket Support in Spring Security](https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/htmlsingle/#rsocket)
+* [101 Reactive Gems](https://github.com/reactor/reactive-streams-commons/issues/21)
+* [Notes on Reactive Programming (Part 1) - The Reactive Landscape](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape) | [Notes on Reactive Programming (Part 2) - Writing Some Code](https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code)

@@ -1,4 +1,4 @@
-package com.equalities.cloud.rsocket.server;
+package com.equalities.cloud.rsocket.client.ack;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Message {
-  @NonNull private String text;
+public class RecvStatus {
+  @NonNull private String receivedMessage;
+  @NonNull private Boolean receivedStatus;
 }

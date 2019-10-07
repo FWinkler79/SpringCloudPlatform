@@ -14,17 +14,15 @@ public class HealthStatusReporter {
   private static final Logger logger = LoggerFactory.getLogger(HealthStatusReporter.class);
 
   @MessageMapping("health.status")
-  public Flux<HealthStatusMessage> getStatus(Flux<Ping> healthPings, RSocketRequester server) {
-    
-    // Subscribe to the health pings we receive.
-    healthPings.subscribe();
+  public Flux<HealthStatusMessage> getStatus(RSocketRequester server) {
+    logger.info("Server requested health status. Returning status 'UP' message.");
     
     // Transform the stream of pings into
     // a health status message and pong it back.
-    return healthPings.map(ping -> {
-                         logger.info("Received health status ping. Returning status 'UP' message.");
-                         HealthStatusMessage healthStatusMessage = new HealthStatusMessage("UP");
-                         return healthStatusMessage;
-                       });
+    return createHealthStatusStream();
+  }
+  
+  private Flux<HealthStatusMessage> createHealthStatusStream() {
+    return Flux.just(new HealthStatusMessage("UP"), new HealthStatusMessage("DOWN"), new HealthStatusMessage("UP"));
   }
 }

@@ -18,6 +18,7 @@ import reactor.core.publisher.Mono;
 public class MessageEndpoint {
 
   private static final Logger logger = LoggerFactory.getLogger(MessageEndpoint.class);
+  private Map<RSocketRequester, Flux<HealthStatusMessage>> healthStatusByClient = new HashMap<>();
 
   @ConnectMapping
   Mono<Void> handleConnectionSetup(RSocketRequester client) {
@@ -30,13 +31,15 @@ public class MessageEndpoint {
 
     // Request a stream of health status events (ACKs)
     // from the client. But don't subscribe to it yet...
-    client.route("health.status")
-          .data(Mono.empty())
-          .retrieveFlux(HealthStatusMessage.class)
-          .subscribe(healthStatusMessage -> {
-            logger.info("Client health status is '{}'", healthStatusMessage.getStatus());
-          });
-
+    Flux<HealthStatusMessage> healthStatusStream = client.route("health.status")
+                                                         .data(Mono.empty())
+                                                         .retrieveFlux(HealthStatusMessage.class)
+                                                         .doOnNext(healthStatusMessage -> {
+                                                           logger.info("Client health status is '{}'", healthStatusMessage.getStatus());
+                                                         });
+    
+    healthStatusByClient.put(client, healthStatusStream);
+    
     return Mono.empty();
   }
 
@@ -46,6 +49,9 @@ public class MessageEndpoint {
                                        RSocketRequester client // Note: the client can get injected and be used like a remote server (e.g. for asking back)
                                       ) {
     logger.info("Messages received on channel for {}", name);
+    
+    // only subscribe to the client's health status stream now.
+    healthStatusByClient.get(client).subscribe();
     
     // Subscribe to a stream of reception
     // status events (ACKs) from the client.

@@ -25,12 +25,15 @@ public class MessageEndpoint {
 
     logger.info("Received connection from client {}", client);
 
-    // Client can now be used to communicated back to.
+    // The client can now be used to communicated back to!
     // Here we see that RSocket really goes both ways!
-    // The distinction between client and server gets blurry.
+    // The lines between client and server get blurry.
 
-    // Request a stream of health status events (ACKs)
-    // from the client. But don't subscribe to it yet...
+    // Request a stream of health status events from the client. 
+    // Note, although we could subscribe to the stream right away,
+    // we show here, how this could be deferred to a later stage.
+    // The actual subscription to the stream is only done later in
+    // method 'receiveMessages'.
     Flux<HealthStatusMessage> healthStatusStream = client.route("health.status")
                                                          .data(Mono.empty())
                                                          .retrieveFlux(HealthStatusMessage.class)
@@ -43,18 +46,19 @@ public class MessageEndpoint {
     return Mono.empty();
   }
 
-  @MessageMapping("messages.for.{name}")
-  public Flux<Message> receiveMessages(@DestinationVariable String name, // Note: the name of the mapping can be dynamic!
+  @MessageMapping("messages.from.{clientName}")
+  public Flux<Message> receiveMessages(@DestinationVariable String clientName, // Note: the name of the mapping can be dynamic!
                                        Flux<Message> messages, // Note: the input params can be streams themselves!
                                        RSocketRequester client // Note: the client can get injected and be used like a remote server (e.g. for asking back)
                                       ) {
-    logger.info("Messages received on channel for {}", name);
     
-    // only subscribe to the client's health status stream now.
+    logger.info("Messages received on channel from client with name '{}'", clientName);
+    logger.info("- Client: {}", client);
+    
+    // Subscribe to the client's health status stream only now.
     healthStatusByClient.get(client).subscribe();
     
-    // Echo back the messages to the
-    // client (which will acknowledge them).
+    // Echo back the messages to the client.
     return messages;
   }
 }

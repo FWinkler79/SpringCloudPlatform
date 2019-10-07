@@ -29,9 +29,17 @@ public class RsocketClientApplication {
   }
   
   private void sendMessages() {
-    Flux<Message> echoedMessages = messageClient.echo(Flux.just( new Message("Hello"), new Message("World"), new Message("Welcome to RSocket!"), new Message("All these messages are streamed with backpressure.")));
-    echoedMessages.log()
-                  .limitRate(2)
-                  .subscribe();
+    //@formatter:off
+    Flux<Message> messages = Flux.just( new Message("Hello"), 
+                                        new Message("World"), 
+                                        new Message("Welcome to RSocket!"), 
+                                        new Message("All these messages are streamed with backpressure."));
+    
+    Flux<Message> echos = messageClient.send(messages, "RSocket-Client-1");
+    
+    echos.log()
+         .limitRate(2)
+         .subscribe();
+    //@formatter:on
   }
 }

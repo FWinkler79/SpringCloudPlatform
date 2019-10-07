@@ -53,15 +53,6 @@ public class MessageEndpoint {
     // only subscribe to the client's health status stream now.
     healthStatusByClient.get(client).subscribe();
     
-    // Subscribe to a stream of reception
-    // status events (ACKs) from the client.
-//      client.route("message.reception.status")
-//            .data(messages.share())
-//            .retrieveFlux(RecvStatus.class)
-//            .subscribe( recvStatus -> { 
-//              logger.info("Message '{}' was {}received", recvStatus.getReceivedMessage(), (recvStatus.getReceivedStatus() ? "" : "not"));
-//            });
-
     // Echo back the messages to the
     // client (which will acknowledge them).
     return messages;

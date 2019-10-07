@@ -1,17 +1,14 @@
-package com.equalities.cloud.rsocket.client;
+package com.equalities.cloud.rsocket.server;
 
-import static java.time.Duration.ofSeconds;
+import static java.time.Duration.*;
 
-import java.net.URI;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.rsocket.RSocketRequester;
-import org.springframework.messaging.rsocket.annotation.support.RSocketMessageHandler;
-import org.springframework.stereotype.Component;
+import org.springframework.boot.rsocket.server.ServerRSocketFactoryCustomizer;
 
+import io.rsocket.RSocketFactory.ServerRSocketFactory;
 import io.rsocket.lease.Lease;
 import io.rsocket.lease.LeaseStats;
 import io.rsocket.lease.Leases;
@@ -19,42 +16,25 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 
 /**
- * Bean that creates a connection to an RSocket server / remote peer.
- * Also shows how to handle leases. In this example the client gets leases
- * from the server, making sure that the server cannot get overwhelmed by
- * too many client connection requests. Also, the client issues leases to 
- * the server, in case it calls back to the client.
- * The leases example is based on this sample application of rsocket-java:
+ * A ServerRSocketFactoryCustomizer to add the emission 
+ * (and retrieval) of leases to (and from) clients.
+ * Leases can be used to limit the number of accepted clients
+ * on server side. This will keep the server responsive for
+ * more, distinct clients, and keeps it from being overwhelmed
+ * with requests.
+ * 
+ * The implementation is based on this sample:
  * https://github.com/rsocket/rsocket-java/blob/master/rsocket-examples/src/main/java/io/rsocket/examples/transport/tcp/lease/LeaseExample.java
  */
-@Component
-public class ServerConnection {
-  private final RSocketRequester server;
+public class LeaseCustomizer implements ServerRSocketFactoryCustomizer {
 
-  @Autowired
-  public ServerConnection(RSocketRequester.Builder rsocketRequesterBuilder, RSocketMessageHandler messageHandler) {
+  @Override
+  public ServerRSocketFactory apply(ServerRSocketFactory factory) {
+    factory.lease(() -> Leases.<NoopStats>create()
+                              .sender(new LeaseSender("Server", 7_000, 5))
+                              .receiver(new LeaseReceiver("Server")));
     
-    // Create a new RSocket connection with the server.
-    // We connect to the server via WebSocket and register ourselves
-    // as a client that can be called back (unsolicited) by the server.
-    // In other words: we are a server, too, and we are communicating with
-    // the server in full duplex mode. This would not be possible with plain HTTP!
-    this.server = rsocketRequesterBuilder
-                  .rsocketFactory(factory -> {
-                    // explicitly register the RSocketMessage handler to receive callbacks from the server:
-                    factory.acceptor(messageHandler.responder());
-                    // emit and receive leases: (Not working yet. The Spring guys are still integrating this in their SNAPSHOTs).
-                    //factory.lease(() -> Leases.<NoopStats>create()
-                    //                          .sender(new LeaseSender("Client", 3_000, 5))
-                    //                          .receiver(new LeaseReceiver("Client")));
-                  }) 
-                  // connect to the server via WebSockets.
-                  .connectWebSocket(URI.create("http://localhost:3333/rsocketServer"))
-                  .block();
-  }
-  
-  public RSocketRequester getServer() {
-    return server;
+    return factory;
   }
   
   private static class NoopStats implements LeaseStats {
@@ -115,3 +95,4 @@ public class ServerConnection {
     }
   }
 }
+

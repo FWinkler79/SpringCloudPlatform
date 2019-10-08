@@ -13,10 +13,14 @@ spring:
         enabled: true
         service-id: config-server # should come from environment
       
-  rsocket:
-    server:
-      mapping-path: /rsocketServer
-      transport:    websocket
+# If we pull up an RSocket server ourselves in coding 
+# we should not use these settings. Otherwise Spring Boot Auto-Configuration will
+# bring up yet another WebSocket RSocket endpoint.
+#
+#  rsocket:
+#    server:
+#      mapping-path: /rsocketServer
+#      transport:    websocket
 
 eureka:
   client:

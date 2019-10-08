@@ -2,6 +2,10 @@ package com.equalities.cloud.rsocket.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+import io.rsocket.transport.netty.server.CloseableChannel;
+import reactor.core.publisher.Mono;
 
 @SpringBootApplication
 //@ComponentScan(basePackageClasses = {LeaseConfiguration.class}, includeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = LeaseConfiguration.class))
@@ -14,7 +18,9 @@ public class RsocketServerApplication {
     // See: https://docs.spring.io/spring-boot/docs/2.2.0.M6/reference/html/spring-boot-features.html#boot-features-web-environment
 	  // springApplication.setWebApplicationType(WebApplicationType.REACTIVE); 
     
-	  springApplication.run(args);	
+	  ApplicationContext context = springApplication.run(args);
+	  Mono<CloseableChannel> rsocketServer = (Mono<CloseableChannel>) context.getBean("rsocketServer");
+	  rsocketServer.block();
 	}
 	
 // This would be the preferred way to customize lease handling and other properties of the

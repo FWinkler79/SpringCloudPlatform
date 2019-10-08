@@ -12,13 +12,14 @@ import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.annotation.ConnectMapping;
 import org.springframework.stereotype.Controller;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Controller
+@Slf4j
 public class MessageEndpoint {
 
-  private static final Logger logger = LoggerFactory.getLogger(MessageEndpoint.class);
   private Map<RSocketRequester, Flux<HealthStatusMessage>> healthStatusByClient = new HashMap<>();
 
   @ConnectMapping
@@ -26,7 +27,7 @@ public class MessageEndpoint {
                                    @Headers Map<String, Object> compositeMetadata) // The metadata used for connection setup. The Object in the map is created by instances of MetadataExtractor / Decoder.
   {                                                                                // See: https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket-metadata-extractor   
 
-    logger.info("Received connection from client {}", client);
+    log.info("Received connection from client {}", client);
 
     // The client can now be used to communicated back to!
     // Here we see that RSocket really goes both ways!
@@ -41,7 +42,7 @@ public class MessageEndpoint {
                                                          .data(Mono.empty())
                                                          .retrieveFlux(HealthStatusMessage.class)
                                                          .doOnNext(healthStatusMessage -> {
-                                                           logger.info("Client health status is '{}'", healthStatusMessage.getStatus());
+                                                           log.info("Client health status is '{}'", healthStatusMessage.getStatus());
                                                          });
     
     healthStatusByClient.put(client, healthStatusStream);
@@ -57,9 +58,9 @@ public class MessageEndpoint {
                                        RSocketRequester client                         // Note: the client can get injected and be used like a remote server (e.g. for asking back)
                                       ) {
     
-    logger.info("Messages received on channel from client with name '{}'", clientName);
-    logger.info("- Client:           {}", client);
-    logger.info("- Metadata Headers: {}", compositeMetadata);
+    log.info("Messages received on channel from client with name '{}'", clientName);
+    log.info("- Client:           {}", client);
+    log.info("- Metadata Headers: {}", compositeMetadata);
     
     // Subscribe to the client's health status stream only now.
     healthStatusByClient.get(client).subscribe();

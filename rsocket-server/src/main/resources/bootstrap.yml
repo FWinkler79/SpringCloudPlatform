@@ -15,8 +15,8 @@ spring:
       
   rsocket:
     server:
-      port: 9999
-      transport: tcp
+      mapping-path: /rsocketServer
+      transport:    websocket
 
 eureka:
   client:

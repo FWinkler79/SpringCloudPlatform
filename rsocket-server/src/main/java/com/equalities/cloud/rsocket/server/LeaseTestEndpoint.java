@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
+import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
@@ -13,12 +14,12 @@ import reactor.core.publisher.Mono;
  * This is intended, and shows how leasing works in RSocket.
  */
 @Controller
+@Slf4j
 public class LeaseTestEndpoint {
 
-  private static final Logger logger = LoggerFactory.getLogger(LeaseTestEndpoint.class);
-  
   @MessageMapping("lease.test")
   public Mono<Void> receiveRequest(Mono<Void> request) {
+    log.info("Received request on 'lease.test' endpoint.");
     return Mono.empty();
   }
 }

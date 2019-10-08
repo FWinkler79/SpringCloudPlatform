@@ -49,7 +49,7 @@ public class ServerConnection {
                                               .receiver(new LeaseReceiver("Client")));
                   }) 
                   // connect to the server via WebSockets.
-                  .connectTcp("localhost", 9999)
+                  .connectWebSocket(URI.create("http://localhost:3333/rsocketServer"))
                   .block();
   }
   

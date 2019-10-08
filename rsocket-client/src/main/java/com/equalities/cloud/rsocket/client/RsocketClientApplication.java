@@ -12,6 +12,9 @@ public class RsocketClientApplication {
    
   @Autowired
   private MessageClient messageClient;
+  
+  @Autowired
+  private LeaseTestClient leaseTestClient;
 
   public static void main(String[] args) {
 
@@ -26,6 +29,7 @@ public class RsocketClientApplication {
     
     RsocketClientApplication thisApplication = context.getBean(RsocketClientApplication.class);
     thisApplication.sendMessages();
+    thisApplication.testLeases();
   }
   
   private void sendMessages() {
@@ -41,5 +45,10 @@ public class RsocketClientApplication {
          .limitRate(2)
          .subscribe();
     //@formatter:on
+  }
+  
+  private void testLeases() {
+    // fire a request at the server 1 every second.
+    leaseTestClient.fireRequests(1);
   }
 }

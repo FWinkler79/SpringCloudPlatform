@@ -44,12 +44,12 @@ public class ServerConnection {
                     // explicitly register the RSocketMessage handler to receive callbacks from the server:
                     factory.acceptor(messageHandler.responder());
                     // emit and receive leases: (Not working yet. The Spring guys are still integrating this in their SNAPSHOTs).
-                    //factory.lease(() -> Leases.<NoopStats>create()
-                    //                          .sender(new LeaseSender("Client", 3_000, 5))
-                    //                          .receiver(new LeaseReceiver("Client")));
+                    factory.lease(() -> Leases.<NoopStats>create()
+                                              .sender(new LeaseSender("Client", 10_000, 2))
+                                              .receiver(new LeaseReceiver("Client")));
                   }) 
                   // connect to the server via WebSockets.
-                  .connectWebSocket(URI.create("http://localhost:3333/rsocketServer"))
+                  .connectTcp("localhost", 9999)
                   .block();
   }
   

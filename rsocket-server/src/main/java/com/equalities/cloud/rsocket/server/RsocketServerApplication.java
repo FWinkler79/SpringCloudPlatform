@@ -1,9 +1,20 @@
 package com.equalities.cloud.rsocket.server;
 
+import java.util.Collection;
+import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.rsocket.RSocketProperties;
+import org.springframework.boot.context.properties.PropertyMapper;
+import org.springframework.boot.rsocket.netty.NettyRSocketServerFactory;
+import org.springframework.boot.rsocket.server.RSocketServerFactory;
 import org.springframework.boot.rsocket.server.ServerRSocketFactoryCustomizer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.client.reactive.ReactorResourceFactory;
 
 @SpringBootApplication
 public class RsocketServerApplication {
@@ -19,10 +30,29 @@ public class RsocketServerApplication {
 	}
 	
 
+  @Bean
+  RSocketServerFactory rSocketServerFactory(RSocketProperties properties, ReactorResourceFactory resourceFactory, ObjectProvider<ServerRSocketFactoryCustomizer> customizers) {
+    NettyRSocketServerFactory factory = new NettyRSocketServerFactory();
+    
+    factory.setResourceFactory(resourceFactory);
+    factory.setTransport(properties.getServer().getTransport());
+    
+    PropertyMapper map = PropertyMapper.get().alwaysApplyingWhenNonNull();
+    map.from(properties.getServer().getAddress()).to(factory::setAddress);
+    map.from(properties.getServer().getPort()).to(factory::setPort);
+    
+    Collection<ServerRSocketFactoryCustomizer> serverCustomizers = customizers.orderedStream().collect(Collectors.toList());
+    serverCustomizers.add(new LeaseCustomizer());
+    
+    factory.setServerCustomizers(serverCustomizers);
+    return factory;
+  }
+	
 // Does not quite work yet. The Spring guys are only just getting this integrated into their SNAPSHOTs. 
 //	
+//	
 //	@Bean
-//	public ServerRSocketFactoryCustomizer serverRSocketFactoryCustomizer() {
+//	public ServerRSocketFactoryCustomizer mine() {
 //	  // Here, we return a ServerRSocketFactoryCustomizer bean to influence 
 //	  // how the RSocket server is configured.
 //	  //

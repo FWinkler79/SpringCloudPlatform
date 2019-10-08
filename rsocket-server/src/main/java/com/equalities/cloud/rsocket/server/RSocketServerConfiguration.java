@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.ObjectProvider;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.rsocket.CustomRSocketWebSocketNettyRouteProvider;
 import org.springframework.boot.autoconfigure.rsocket.RSocketProperties;
 import org.springframework.boot.rsocket.server.ServerRSocketFactoryCustomizer;
@@ -23,7 +22,6 @@ import io.rsocket.SocketAcceptor;
 public class RSocketServerConfiguration {
 
   @Bean
-  @ConditionalOnMissingBean
   CustomRSocketWebSocketNettyRouteProvider rSocketWebsocketRouteProvider(RSocketProperties properties, 
                                                                          RSocketMessageHandler messageHandler, 
                                                                          ObjectProvider<ServerRSocketFactoryCustomizer> customizers) {

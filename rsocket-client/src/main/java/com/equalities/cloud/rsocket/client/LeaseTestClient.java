@@ -40,13 +40,17 @@ public class LeaseTestClient {
             Mono<Void> returnValue = rsocketServer.route("lease.test")
                 .data(Mono.empty())
                 .retrieveMono(Void.class)
-                .doOnError(err -> log.info("Client request error: " + err))
-                .onErrorResume(err -> Mono.empty());
+                .doOnError(err -> log.info("Client request failed with error {}. Time to think about a fallback!!!", err.toString()))
+                .onErrorResume(this::fallback);
             
             return returnValue;
         })
         .subscribe(resp -> log.info("Client successfully received a response from server."));
-        
     //@formatter:on
+  }
+  
+  private Mono<Void> fallback(Throwable error) {
+    log.info("--> Executing a fallback for failing request to server. Returning client-generated empty Mono.");
+    return Mono.empty();
   }
 }

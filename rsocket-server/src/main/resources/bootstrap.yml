@@ -8,6 +8,9 @@ spring:
     name: rsocket-server
   
   cloud:
+    function:
+      definition: blah
+    
     config:
       discovery:
         enabled: true

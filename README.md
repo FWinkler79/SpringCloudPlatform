@@ -186,6 +186,81 @@ Additionally references WebJars to provide static UI content.
 - REST Docs:   [Spring REST Docs](https://spring.io/projects/spring-restdocs)
 - Secure Password Storage: [Spring Vault](https://spring.io/projects/spring-vault) | [Vault](https://www.vaultproject.io/) | [Vault Docker Image](https://hub.docker.com/_/vault)
 
+# Appendix
+
+## Understanding Spring / Spring Boot / Spring Cloud versioning.
+
+When you are developing with Spring, you will usually want to use the released versions. However, there may be times in which you will need to switch to a newer milestone, e.g. in case of errors in a release or if you are asked to try out a new fix the Spring teams have introduced.
+
+Generally, the following version patterns are usually encountered with Spring / Spring Boot:
+
+1. major.minor.patch.RELEASE
+2. major.minor.patch.SRx (with x=[1..N))
+3. major.minor.patch.Mx (with x=[1..N))
+4. major.minor.patch.RCx (with x=[1..N))
+5. major.minor.patch.BUILD-SNAPSHOT
+
+The version suffixes mean the following:
+* RELEASE - the (first) release and production-ready version of an artifact, e.g. `2.1.18.RELEASE`
+* SRx - one of potentially multiple _service releases_, i.e. newer versions of a released artifact, e.g. containing critical patches. Example: `2.1.18.SR2`
+* Mx - one of potentially many _milestone_ releases, usually relevant if you already want to take a peek at the next version the Spring team is working on. E.g. `2.2.0.M6`
+* RCx - one of potentially multiple _release candidates_. These are usually newer than any milestone, and constitute one of potentially multiple milestones that are considered for final release.
+* BUILD-SNAPSHOT - the (usually) latest snapshot versions of an artifact. Note, that we have experienced some release candidate versions being more up to date than the BUILD-SNAPSHOTs!
+
+The general rule of thumb is:
+1. If you intend to stay on the safe release path, prefer service release (`SRx`) versions over release (`RELEASE`) versions. And pick the one with the highest number, e.g. `SR4` rather than `SR3`.
+1. If you intend to peek into the next version coming, prefer release candidate (`RCx`) versions over milestone (`Mx`) versions. And pick the one with the highest number, e.g. `RC2` over `RC1` over `M6`.
+
+Spring and Spring Boot usually use numbers for versions. For Spring Cloud, usually, no major.minor.patch versions are used, but names - e.g. those of British towns - in alphabetically increasing order.
+For example, at the time of writing, the latest release of Spring Cloud is the `Greenwhich` release, with `Hoxton` milestones available as the next release is being prepared.
+Predecessors of `Greenwhich` are `Angel`, `Brighton`, `Camden`, `Dalston`, `Edgware`, and `Finchley` - you get the idea.
+For Spring cloud the same version suffixes apply as stated above.
+
+If you intend to use milestone or snapshot versions, you will have to add the following repository configurations to your Maven `pom.xml` for the dependencies to be resolved properly:
+
+For Milestones:
+```xml 
+<repositories>
+  <repository>
+    <id>spring-milestones</id>
+    <name>Spring Milestones</name>
+    <url>https://repo.spring.io/milestone</url>
+  </repository>
+</repositories>
+<pluginRepositories>
+  <pluginRepository>
+    <id>spring-milestones</id>
+    <name>Spring Milestones</name>
+    <url>https://repo.spring.io/milestone</url>
+  </pluginRepository>
+</pluginRepositories>
+```
+
+For SNAPSHOTs:
+
+```xml
+<repositories>
+  <repository>
+    <id>spring-milestones</id>
+    <name>Spring Snapshots</name>
+    <url>https://repo.spring.io/snapshot</url>
+  </repository>
+</repositories>
+<pluginRepositories>
+  <pluginRepository>
+    <id>spring-milestones</id>
+    <name>Spring Snapshots</name>
+    <url>https://repo.spring.io/snapshot</url>
+  </pluginRepository>
+</pluginRepositories>
+```
+
+The milestone repository links given above will contain also releases and service releases. Thus, you will also be able to resolve `.RELEASE` versions while pointing to the milestones repository.
+In case you only want to see the milestones and release candidates you can use the following URLs instead:
+
+* For Milestones: https://repo.spring.io/libs-milestone-local
+* For Snapshots: https://repo.spring.io/libs-snapshot-local
+
 # References
 
 * [Beginner's guide to Spring Cloud](https://www.youtube.com/watch?v=aO3W-lYnw-o) | [Github Repo](https://github.com/ryanjbaxter/beginners-guide-to-spring-cloud/)

@@ -188,7 +188,7 @@ Additionally references WebJars to provide static UI content.
 
 # Appendix
 
-## Understanding Spring / Spring Boot / Spring Cloud versioning.
+## Understanding Spring / Spring Boot / Spring Cloud Versioning
 
 When you are developing with Spring, you will usually want to use the released versions. However, there may be times in which you will need to switch to a newer milestone, e.g. in case of errors in a release or if you are asked to try out a new fix the Spring teams have introduced.
 

@@ -2,7 +2,7 @@ package com.equalities.cloud.rsocket.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.rsocket.server.ServerRSocketFactoryCustomizer;
+import org.springframework.boot.rsocket.server.ServerRSocketFactoryProcessor;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
@@ -24,7 +24,7 @@ public class RsocketServerApplication {
 // getting this integrated into their SNAPSHOTs. 
 //
  @Bean
- public ServerRSocketFactoryCustomizer leaseCustomizer() {
+ public ServerRSocketFactoryProcessor leaseCustomizer() {
    // Here, we return a ServerRSocketFactoryCustomizer bean to influence 
    // how the RSocket server is configured.
    //
@@ -38,7 +38,7 @@ public class RsocketServerApplication {
    // See: https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket-requester-client-advanced
    
    // See: org.springframework.boot.autoconfigure.rsocket.RSocketServerAutoConfiguration
-   return new LeaseCustomizer();
+   return new LeaseCustomizingProcessor();
  }
 
 // For TCP, you can use this to customize the ServerRSocketFactory.

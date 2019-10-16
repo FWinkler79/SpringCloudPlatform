@@ -18,6 +18,7 @@
 		<module>diagnostics-service</module>
 		<module>rsocket-server</module>
 		<module>rsocket-client</module>
+    <module>gateway</module>
 	</modules>
 
 </project>

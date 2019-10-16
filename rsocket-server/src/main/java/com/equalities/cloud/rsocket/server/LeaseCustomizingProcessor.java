@@ -1,12 +1,12 @@
 package com.equalities.cloud.rsocket.server;
 
-import static java.time.Duration.*;
+import static java.time.Duration.ofSeconds;
 
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import org.springframework.boot.rsocket.server.ServerRSocketFactoryCustomizer;
+import org.springframework.boot.rsocket.server.ServerRSocketFactoryProcessor;
 
 import io.rsocket.RSocketFactory.ServerRSocketFactory;
 import io.rsocket.lease.Lease;
@@ -26,10 +26,10 @@ import reactor.core.publisher.Flux;
  * The implementation is based on this sample:
  * https://github.com/rsocket/rsocket-java/blob/master/rsocket-examples/src/main/java/io/rsocket/examples/transport/tcp/lease/LeaseExample.java
  */
-public class LeaseCustomizer implements ServerRSocketFactoryCustomizer {
+public class LeaseCustomizingProcessor implements ServerRSocketFactoryProcessor {
 
   @Override
-  public ServerRSocketFactory apply(ServerRSocketFactory factory) {
+  public ServerRSocketFactory process(ServerRSocketFactory factory) {
     factory.lease(() -> Leases.<NoopStats>create()
                               .sender(new LeaseSender("Server", 7_000, 5))
                               .receiver(new LeaseReceiver("Server")));

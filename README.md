@@ -170,6 +170,9 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 Note that the service URL (`http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc`) contains parameters for **sorting and paging** - all out of the box with [Spring Data](https://spring.io/projects/spring-data).
 There is also a "search by name" endpoint available. E.g. `http://localhost:2222/reservations/search/by-name?reservationName=Carl` will return only the reservations whose name is "Carl".
 
+Finally, there is a ["greetings" endpoint](http://localhost:2222/greeting), which simply shows a greetings message that comes from the `reservation-server.yml` configuration in the [Configs Repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
+With Rabbit MQ running (`./scripts/startRabbit.sh`) and a connection to Smee.io established (`./scripts/connectToSmee.sh`), you can change the configs in the repo, and see how the message gets updated automatically (you need to refresh greetings endpoint).
+
 # Diagnostics Service
 
 [Access in Browser](http://localhost:8777/)

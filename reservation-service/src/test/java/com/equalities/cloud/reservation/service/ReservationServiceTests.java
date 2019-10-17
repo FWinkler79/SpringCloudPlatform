@@ -1,13 +1,13 @@
-package com.equalities.cloud.reservation.service;
+// package com.equalities.cloud.reservation.service;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class ReservationServiceTests {
+// @SpringBootTest
+// public class ReservationServiceTests {
 
-  @Test
-  void contextLoads() {
-  }
+//   @Test
+//   public void contextLoads() {
+//   }
 
-}
+// }

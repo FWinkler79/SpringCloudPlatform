@@ -1,13 +1,13 @@
-package com.equalities.cloud.rsocket.server;
+// package com.equalities.cloud.rsocket.server;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+// import org.junit.jupiter.api.Test;
+// import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class RsocketServerApplicationTests {
+// @SpringBootTest
+// public class RsocketServerApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+// 	@Test
+// 	public void contextLoads() {
+// 	}
 
-}
+// }

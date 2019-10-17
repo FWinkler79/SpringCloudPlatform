@@ -151,7 +151,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 
 # Greetings Service
 
-[Access in Browser](http://localhost:3333/greeting)
+[Access in Browser](http://localhost:5555/greeting)
 
 This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
 
@@ -163,7 +163,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Eureka Discovery Client
 * Spring Boot Actuator
 
-There is a [greetings endpoint](http://localhost:3333/greeting), that shows a greetings message that comes from the `greetings-service.yml` configuration in the [Configs Repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
+There is a [greetings endpoint](http://localhost:5555/greeting), that shows a greetings message that comes from the `greetings-service.yml` configuration in the [Configs Repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
 With Rabbit MQ running (`./scripts/startRabbit.sh`) and a connection to Smee.io established (`./scripts/connectToSmee.sh`), you can change the configs in the repo, and see how the message gets updated automatically (you need to refresh greetings endpoint).
 
 # Reservation Service

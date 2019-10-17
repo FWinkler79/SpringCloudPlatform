@@ -168,6 +168,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * RSocket
 
 Note that the service URL (`http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc`) contains parameters for **sorting and paging** - all out of the box with [Spring Data](https://spring.io/projects/spring-data).
+There is also a "search by name" endpoint available. E.g. `http://localhost:2222/reservations/search/by-name?reservationName=Carl` will return only the reservations whose name is "Carl".
 
 # Diagnostics Service
 

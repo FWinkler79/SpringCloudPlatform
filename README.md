@@ -149,6 +149,23 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 - Currently does not use configs from config-server but brings its own.
 - Startup is independent from config-server
 
+# Greetings Service
+
+[Access in Browser](http://localhost:3333/greeting)
+
+This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+
+* Spring Web
+* Spring for RabbitMQ (adds `spring-boot-starter-amqp`, and `spring-cloud-stream-binder-rabbit` for Spring Cloud Bus)
+* Cloud Bus (Adds `spring-cloud-bus`)
+* Config Client
+* Zipkin Client
+* Eureka Discovery Client
+* Spring Boot Actuator
+
+There is a [greetings endpoint](http://localhost:3333/greeting), that shows a greetings message that comes from the `greetings-service.yml` configuration in the [Configs Repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
+With Rabbit MQ running (`./scripts/startRabbit.sh`) and a connection to Smee.io established (`./scripts/connectToSmee.sh`), you can change the configs in the repo, and see how the message gets updated automatically (you need to refresh greetings endpoint).
+
 # Reservation Service
 
 [Access in Browser](http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc)
@@ -169,9 +186,6 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 
 Note that the service URL (`http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc`) contains parameters for **sorting and paging** - all out of the box with [Spring Data](https://spring.io/projects/spring-data).
 There is also a "search by name" endpoint available. E.g. `http://localhost:2222/reservations/search/by-name?reservationName=Carl` will return only the reservations whose name is "Carl".
-
-Finally, there is a ["greetings" endpoint](http://localhost:2222/greeting), which simply shows a greetings message that comes from the `reservation-server.yml` configuration in the [Configs Repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
-With Rabbit MQ running (`./scripts/startRabbit.sh`) and a connection to Smee.io established (`./scripts/connectToSmee.sh`), you can change the configs in the repo, and see how the message gets updated automatically (you need to refresh greetings endpoint).
 
 # Diagnostics Service
 

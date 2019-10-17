@@ -1,4 +1,4 @@
-package com.equalities.cloud.reservation.service;
+package com.equalities.greetings.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RefreshScope
 @RestController
-public class ReservationServiceGreetingsEndpoint {
+public class GreetingsEndpoint {
   
   //TODO: This is not a good way to inject configurations. 
   //      It creates a tight deployment dependency to the config-server 
@@ -21,5 +21,4 @@ public class ReservationServiceGreetingsEndpoint {
   public String serveGreeting() {
     return greetingMessage; 
   }
-
 }

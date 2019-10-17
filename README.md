@@ -70,7 +70,8 @@ docker run -d --hostname my-rabbit --name rabbitBroker -p 15672:15672 -p 5672:56
 ```
 
 Once started you can access its UI using http://localhost:15672/#/.  
-Username: guest, password: guest.
+**Username:** guest
+**Password:** guest
 
 # Service Startup Order
 
@@ -100,7 +101,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 Project `config-server` is a Spring Boot application that acts as a central configuration server.
 It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) to serve configurations that are stored in a [GitHub repository](https://github.com/FWinkler79/SpringCloudPlatform-Configs).
 
-- Has its own configurations (not loaded from github)
+- Bootstraps its own configurations by loading them from GitHub.
 - Uses Zipkin / Sleuth to report tracing information.
 - Is a Eureka client, i.e. registers itself with service registry.
 - Services find / lookup config-server via Eureka.
@@ -109,15 +110,20 @@ It uses [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config
   (See [this Spring Cloud Config issue](https://github.com/spring-cloud/spring-cloud-config/issues/514).)
 - Configs are loaded using the following URL pattern `/{name}/{profile}/{label}` where
   - name: service ID
-  - profile: active spring profile
+  - profile: active spring profile (optional)
   - label: usually `master` but can be any git tag, commit ID or branch name.
   - see [Spring Cloud Config](https://cloud.spring.io/spring-cloud-config/reference/html/) and [Locating Remote Configuration Resources](https://cloud.spring.io/spring-cloud-config/reference/html/#_locating_remote_configuration_resources)
 - Uses Spring Cloud Bus, RabbitMQ and Spring Cloud Config Monitor to expose an `/monitor` endpoint which can be registered as a GitHub WebHook. Every time the configuration changes in GitHub, GitHub sends an event to the `/monitor` endpoint.
   The controller behind the `/monitor` endpoint fires a refresh event via the Spring Cloud Bus (using RabbitMQ as the signalling layer), BUT: only to the service instances that are affected by the change in GitHub (based on Eureka service registry).
   Services refresh automatically with changes in the configurations being pushed to GitHub!
-- Exposes http://localhost:1111/actuator/bus-refresh endpoint, to refresh all services on the bus at once. See also: http://localhost:1111/actuator/bus-env where you could post key-value pairs to add to every service's environment.
+- Exposes `http://localhost:1111/actuator/bus-refresh` endpoint, to refresh all services on the bus at once. See also: `http://localhost:1111/actuator/bus-env` where you could post key-value pairs to add to every service's environment.
   See also [addressing of individual service instance](https://cloud.spring.io/spring-cloud-bus/reference/html/index.html#addressing-an-instance).
 - Use http://smee.io to forward WebHook events to localhost.
+
+You can see the configurations the server provides by opening its endpoint in a browser. 
+For example, `http://localhost:1111/reservation-service/master` shows the configurations the `reservation-service` sees. With the URL `http://localhost:1111/application/master` you can see the configurations **every** application sees (the basic configurations).
+Note  that the reservation-service in this example sees an layered view of its own configurations mixed with the basic configurations!
+Using `http://localhost:1111/reservation-service/cloud/master` will show the configurations `reservation-service` will see, if the `cloud` profile is active in the service (e.g. by setting `spring.profiles.active=cloud` in the `reservation-service`'s environment).
 
 ## Updating Configs
 
@@ -127,6 +133,7 @@ Actuator endpoints:
 - For debugging: `/actuator/env` and `/actuator/health`
 - For Refreshing: `/actuator/refresh` - POST only. Send empty POST request. Receive list of changed properties (delta) after refresh.
 
+**Note:** Needs Rabbit MQ running!
 
 # Service Registry
 
@@ -160,6 +167,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Spring Boot Actuator
 * RSocket
 
+Note that the service URL (`http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc`) contains parameters for **sorting and paging** - all out of the box with [Spring Data](https://spring.io/projects/spring-data).
+
 # Diagnostics Service
 
 [Access in Browser](http://localhost:8777/)
@@ -172,6 +181,8 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Spring Boot Actuator
 
 Additionally references WebJars to provide static UI content.
+
+Usage: `http://localhost:8777/lookup/<serviceName>` e.g. `http://localhost:8777/lookup/config-server`. The output will be the information that is returned by Eureka.
 
 # Technologies to use:
 

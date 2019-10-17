@@ -263,26 +263,32 @@ In case you only want to see the milestones and release candidates you can use t
 
 # References
 
+**Spring Cloud**
 * [Beginner's guide to Spring Cloud](https://www.youtube.com/watch?v=aO3W-lYnw-o) | [Github Repo](https://github.com/ryanjbaxter/beginners-guide-to-spring-cloud/)
 * [Building Micro-Services with Spring Cloud](https://www.youtube.com/watch?v=ZyK5QrKCbwM) (great video) | [GitHub Repository](https://github.com/joshlong/bootiful-microservices)
-* [Reactive Databases](https://r2dbc.io/)
-* [Aeron Protocol](https://github.com/real-logic/aeron/wiki) | [Blog Post](https://medium.com/@pirogov.alexey/aeron-low-latency-transport-protocol-9493f8d504e8)
-* [RSocket and Spring Cloud Gateway](https://content.pivotal.io/slides/welcome-to-the-reactive-revolution-rsocket-and-spring-cloud-gateway-spencer-gibb) | [Older Presentation](https://qconsp.com/system/files/presentation-slides/rsocket_and_spring_cloud_gateway-spencer.gibb_.pdf)
-* [Spring Cloud Gateway RSocket Sample](https://github.com/spencergibb/spring-cloud-gateway-rsocket-sample)
-* [Living on the Edge: Spring Cloud Gateway](https://www.youtube.com/watch?v=jOawuL1Xnwo) (Interesting approach to exposing the Gateway as a Service (broker)!)
-* [Spring Tips: Spring Cloud Gateway](https://www.youtube.com/watch?v=TwVtlNX-2Hs)
+* [Spring Tips: Spring Cloud Gateway](https://www.youtube.com/watch?v=TwVtlNX-2Hs) | [Living on the Edge: Spring Cloud Gateway](https://www.youtube.com/watch?v=jOawuL1Xnwo) (Interesting approach to exposing the Gateway as a Service (broker)!)
+* [Spring Boot CLI Installation](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-manual-cli-installation)
+* [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus) | [Baeldung Tutorial](https://www.baeldung.com/spring-cloud-bus)
+
+**RSocket**
 * [Distributed Reactive Streams with RSocket, Reactor, and Spring](https://www.youtube.com/watch?v=WVnAbv65uCU) (great video)
+* [RSocket and Spring Cloud Gateway Video](https://www.youtube.com/watch?v=PfbycN_eqhg) | [Presentation](https://content.pivotal.io/slides/welcome-to-the-reactive-revolution-rsocket-and-spring-cloud-gateway-spencer-gibb) | [Older Presentation](https://qconsp.com/system/files/presentation-slides/rsocket_and_spring_cloud_gateway-spencer.gibb_.pdf) | [Sample](https://github.com/ciberkleid/spring-flights) | [Older Sample](https://github.com/spencergibb/spring-cloud-gateway-rsocket-sample)
+* [RSocket Support in Spring 5.2 Video](https://www.youtube.com/watch?v=iSSrZoGtoSE) | [Documentation](https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket) (the basis for Spring Boot RSocket support)
+* [RSocket Support in Spring Boot 2.2](https://docs.spring.io/spring-boot/docs/2.2.0.M6/reference/html/spring-boot-features.html#boot-features-rsocket)
+* [RSocket Support in Spring Security Video](https://youtu.be/iSSrZoGtoSE?t=2844) | [Documentation](https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/htmlsingle/#rsocket)
 * [Netifi](https://www.netifi.com/) | [Docs](https://docs.netifi.com/1.6.8/) | [Netifi Broker vs. Spring Cloud Gateway](https://community.netifi.com/t/netifi-vs-future-spring-cloud-gateway/174) | [Youtube Channel](https://www.youtube.com/channel/UCgq8KGNViXB_D-EUpQBLHzA) | [Motivation](https://www.youtube.com/watch?v=V5bhLd_DPjM) | [Spring Demo Repo](https://github.com/netifi/spring-demo)
+* [Aeron Protocol](https://github.com/real-logic/aeron/wiki) | [Blog Post](https://medium.com/@pirogov.alexey/aeron-low-latency-transport-protocol-9493f8d504e8)
+
+**Reactive Programming**
 * [Understanding Reactive Types](https://spring.io/blog/2016/04/19/understanding-reactive-types)
 * [Reactive Streams](https://www.reactive-streams.org)
 * [Project Reactor](https://projectreactor.io/)
-* [RxJava]()
-* [Spring Boot CLI Installation](https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/html/getting-started.html#getting-started-manual-cli-installation)
-* [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
-* [Open Tracing Initiative](https://github.com/opentracing)
-* [Spring Cloud Bus](https://spring.io/projects/spring-cloud-bus) | [Baeldung Tutorial](https://www.baeldung.com/spring-cloud-bus)
-* [RSocket Support in Spring 5.2](https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket) (the basis for Spring Boot RSocket support)
-* [RSocket Support in Spring Boot 2.2](https://docs.spring.io/spring-boot/docs/2.2.0.M6/reference/html/spring-boot-features.html#boot-features-rsocket)
-* [RSocket Support in Spring Security](https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/htmlsingle/#rsocket)
+* [RxJava](https://github.com/ReactiveX/RxJava)
 * [101 Reactive Gems](https://github.com/reactor/reactive-streams-commons/issues/21)
 * [Notes on Reactive Programming (Part 1) - The Reactive Landscape](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape) | [Notes on Reactive Programming (Part 2) - Writing Some Code](https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code)
+* [Reactive Databases](https://r2dbc.io/)
+
+**Dristributed Tracing**
+* [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
+* [Open Tracing Initiative](https://github.com/opentracing)
+

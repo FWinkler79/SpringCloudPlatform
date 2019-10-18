@@ -5,11 +5,8 @@ spring:
   application:
     name: greetings-service
     
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server # should come from environment
+com.equalities:
+  greeting: "Hello Spring World!"
                 
 eureka:
   client:

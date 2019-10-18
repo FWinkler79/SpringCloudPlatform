@@ -1,1 +1,17 @@
+server:
+  port: ${PORT:7777}
 
+spring:
+  application:
+    name: service-gateway
+    
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server # should come from environment
+                
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

@@ -80,12 +80,12 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope> <!-- See: https://projectlombok.org/setup/maven -->
     </dependency>
-
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <!-- Test Dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>

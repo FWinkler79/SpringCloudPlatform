@@ -290,6 +290,8 @@ In case you only want to see the milestones and release candidates you can use t
 * For Milestones: https://repo.spring.io/libs-milestone-local
 * For Snapshots: https://repo.spring.io/libs-snapshot-local
 
+❗️Note: In case you are working from behind a Maven mirror (e.g. Sonatype Nexus) that does not contain Spring milestones and snapshots, you will need to make sure (in you Maven `settings.xml`) that Maven by-passes the mirror when it tries to resolve the milestone or snapshot Spring dependencies.
+
 # References
 
 **Spring Cloud**

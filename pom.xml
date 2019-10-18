@@ -17,6 +17,7 @@
 		<module>greetings-service</module>
 		<module>reservation-service</module>
     <module>reservation-service-client</module>
+		<module>service-gateway</module>
 		<module>diagnostics-service</module>
 		<module>rsocket-server</module>
 		<module>rsocket-client</module>

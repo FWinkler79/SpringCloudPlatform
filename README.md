@@ -204,6 +204,30 @@ This project was created with [Spring Starter](https://start.spring.io/) using t
 * RSocket
 * Lombok
 
+# Service Gateway
+
+[Access in Browser](http://localhost:7777/)
+
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
+
+* Gateway
+* Spring Boot Actuator
+* Eureka Discovery Client
+* Config Client
+* Cloud Bus (Adds `spring-cloud-bus`)
+* Spring for RabbitMQ (adds `spring-boot-starter-amqp`, and `spring-cloud-stream-binder-rabbit` for Spring Cloud Bus)
+* Zipkin Client
+* Lombok
+
+And we manually added the RSocket gateway broker, which at the time of writing was in technical preview stage and not yet available via Spring starter.io:
+
+```xml
+<dependency>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-gateway-rsocket-broker</artifactId>
+</dependency>
+```
+
 # Diagnostics Service
 
 [Access in Browser](http://localhost:8777/)
@@ -326,6 +350,7 @@ In case you only want to see the milestones and release candidates you can use t
 * [RSocket Support in Spring Security Video](https://youtu.be/iSSrZoGtoSE?t=2844) | [Documentation](https://docs.spring.io/spring-security/site/docs/5.2.0.RELEASE/reference/htmlsingle/#rsocket) | [Sample](https://github.com/bclozel/spring-flights/tree/security)
 * [Netifi](https://www.netifi.com/) | [Docs](https://docs.netifi.com/1.6.8/) | [Netifi Broker vs. Spring Cloud Gateway](https://community.netifi.com/t/netifi-vs-future-spring-cloud-gateway/174) | [Youtube Channel](https://www.youtube.com/channel/UCgq8KGNViXB_D-EUpQBLHzA) | [Motivation](https://www.youtube.com/watch?v=V5bhLd_DPjM) | [Spring Demo Repo](https://github.com/netifi/spring-demo)
 * [Aeron Protocol](https://github.com/real-logic/aeron/wiki) | [Blog Post](https://medium.com/@pirogov.alexey/aeron-low-latency-transport-protocol-9493f8d504e8)
+* [RSocket CLI](https://github.com/rsocket/rsocket-cli) (great for debugging and running RSocket servers easily. See also [RSocket Support in Spring 5.2 Video](https://www.youtube.com/watch?v=iSSrZoGtoSE) for usage)
 
 **Reactive Programming**
 * [Understanding Reactive Types](https://spring.io/blog/2016/04/19/understanding-reactive-types)

@@ -16,6 +16,7 @@
 		<module>service-registry</module>
 		<module>greetings-service</module>
 		<module>reservation-service</module>
+    <module>reservation-service-client</module>
 		<module>diagnostics-service</module>
 		<module>rsocket-server</module>
 		<module>rsocket-client</module>

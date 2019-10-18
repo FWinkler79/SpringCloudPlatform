@@ -1,0 +1,17 @@
+server:
+  port: ${PORT:6666}
+
+spring:
+  application:
+    name: reservation-service-client
+    
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server # should come from environment
+                
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

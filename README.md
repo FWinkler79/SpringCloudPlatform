@@ -89,7 +89,7 @@ Services need to be started last, as they will require configuration for startup
 
 [Access in Browser](http://localhost:1111/service/master_or_profile)
 
-This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
 
 * Config Server
 * Zipkin Client
@@ -139,7 +139,7 @@ Actuator endpoints:
 
 [Access in Browser](http://localhost:8761/)
 
-This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
 
 * Eureka Server
 * Config Client
@@ -153,7 +153,7 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 
 [Access in Browser](http://localhost:5555/greeting)
 
-This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
 
 * Spring Web
 * Spring for RabbitMQ (adds `spring-boot-starter-amqp`, and `spring-cloud-stream-binder-rabbit` for Spring Cloud Bus)
@@ -170,7 +170,7 @@ With Rabbit MQ running (`./scripts/startRabbit.sh`) and a connection to Smee.io 
 
 [Access in Browser](http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc)
 
-This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
 
 * Spring Reactive Web
 * Rest Repositories
@@ -183,15 +183,32 @@ This project was created with [Spring Cloud Config Server](https://cloud.spring.
 * Eureka Discovery Client
 * Spring Boot Actuator
 * RSocket
+* Lombok
 
 Note that the service URL (`http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc`) contains parameters for **sorting and paging** - all out of the box with [Spring Data](https://spring.io/projects/spring-data).
 There is also a "search by name" endpoint available. E.g. `http://localhost:2222/reservations/search/by-name?reservationName=Carl` will return only the reservations whose name is "Carl".
+
+# Reservation Service Client
+
+[Access in Browser](http://localhost:6666/callReservationService)
+
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
+
+* Spring Reactive Web
+* Cloud Bus (Adds `spring-cloud-bus`)
+* Spring for RabbitMQ (adds `spring-boot-starter-amqp`, and `spring-cloud-stream-binder-rabbit` for Spring Cloud Bus)
+* Config Client
+* Zipkin Client
+* Eureka Discovery Client
+* Spring Boot Actuator
+* RSocket
+* Lombok
 
 # Diagnostics Service
 
 [Access in Browser](http://localhost:8777/)
 
-This project was created with [Spring Cloud Config Server](https://cloud.spring.io/spring-cloud-config/reference/html/#_spring_cloud_config_server) using the following dependencies:
+This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
 
 * Eureka Discovery Client
 * Zipkin Client

@@ -12,15 +12,8 @@
 	<description>The aggregator POM of the Spring Cloud Platform Projects</description>
 
 	<modules>
-		<module>config-server</module>
-		<module>service-registry</module>
-		<module>greetings-service</module>
-		<module>reservation-service</module>
-    <module>reservation-service-client</module>
+		<module>reservation-service-client</module>
 		<module>service-gateway</module>
-		<module>diagnostics-service</module>
-		<module>rsocket-server</module>
-		<module>rsocket-client</module>
 	</modules>
 
 </project>

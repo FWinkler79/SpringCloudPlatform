@@ -89,8 +89,10 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <!-- Overridden dependencies, since the original ones were throwing errors. 
-      Remove these if you go up with Spring Cloud versions. -->
+    <!-- 
+      Overridden dependencies, since the original ones were throwing errors. 
+      Remove these if you go up with Spring Cloud versions. 
+    -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-sleuth-zipkin</artifactId>

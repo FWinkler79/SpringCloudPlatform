@@ -15,7 +15,6 @@
 		<module>config-server</module>
 		<module>service-registry</module>
 		<module>reservation-service</module>
-		<module>diagnostics-service</module>
 	</modules>
 
 </project>

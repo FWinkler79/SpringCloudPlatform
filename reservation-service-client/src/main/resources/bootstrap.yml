@@ -1,7 +1,7 @@
 #debug: true
 
 server:
-  port: ${PORT:6666}
+  port: ${PORT:9999}
 
 spring:
   application:

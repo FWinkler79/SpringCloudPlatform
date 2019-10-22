@@ -190,7 +190,8 @@ There is also a "search by name" endpoint available. E.g. `http://localhost:2222
 
 # Reservation Service Client
 
-[Access in Browser](http://localhost:6666/callReservationService)
+[Access in Browser](http://localhost:9999/healthStatus})
+[Access via Postman (HTTP POST)](http://localhost:9999/reservation/create/{reservationName})
 
 This project was created with [Spring Starter](https://start.spring.io/) using the following dependencies:
 

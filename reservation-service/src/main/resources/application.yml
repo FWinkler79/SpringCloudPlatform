@@ -1,0 +1,37 @@
+#debug: true
+
+server:
+  port: ${PORT:2222}
+  
+# Logging Levels:
+logging:
+  level: 
+    com.netflix: INFO # Overriding centrally managed log levels for this particular service..
+
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    description: "A service to place and review reservations."
+
+spring:
+  application:
+    name: reservation-service
+    
+  cloud:
+    gateway:
+      rsocket:
+        client:
+          service-name: reservation-service
+          route-id: 400
+          tags: # additional service metadata (similar to Eureka metadata tags)
+            instance_name: reservation-service-1
+            version: 1.0
+            canary: false
+          broker: # where to find the gateway RSocket broker
+            host: localhost # TODO: inject from environment for Cloud deployments.
+            port: 7002      # TODO: connect via websocket, not TCP.
+                
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka

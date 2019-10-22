@@ -36,7 +36,7 @@ public class ReservationServiceClient {
    * @return the Mono with the reservation confirmation.
    */
   public Mono<ReservationConfirmation> createReservation(CreateReservationRequest request) {
-    return rsocketRequester.route("create.reservation.{version}", "1.0") // resolve "version" to be 1.0 for now...
+    return rsocketRequester.route("create-reservation")
 //                    // This is the programmatic way of influencing routing through metdata.
 //                    // The declarative way is shown in reservation-service-client.yml in 
 //                    // https://github.com/FWinkler79/SpringCloudPlatform-Configs

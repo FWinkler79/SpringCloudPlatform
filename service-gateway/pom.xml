@@ -18,6 +18,7 @@
   <properties>
     <java.version>11</java.version>
     <spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
+    <spring-cloud-gateway-rsocket.version>2.2.0.M3</spring-cloud-gateway-rsocket.version>
   </properties>
 
   <dependencies>
@@ -25,10 +26,37 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-gateway</artifactId>
     </dependency>
+    
+    <!-- RSocket Dependencies, manually added, since they were removed from Spring Cloud Gateway. -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-rsocket</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-gateway-rsocket-broker</artifactId>
+      <version>${spring-cloud-gateway-rsocket.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-gateway-rsocket-common</artifactId>
+      <version>${spring-cloud-gateway-rsocket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.rsocket</groupId>
+      <artifactId>rsocket-micrometer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.roaringbitmap</groupId>
+      <artifactId>RoaringBitmap</artifactId>
+      <version>0.8.11</version>
+    </dependency>
+    <dependency>
+      <groupId>io.rsocket</groupId>
+      <artifactId>rsocket-transport-netty</artifactId>
+    </dependency>
+    <!--  End of RSocket Dependencies. -->
+    
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>

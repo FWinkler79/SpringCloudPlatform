@@ -7,14 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.function.context.config.ContextFunctionCatalogAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @EnableDiscoveryClient
-@SpringBootApplication(exclude = ContextFunctionCatalogAutoConfiguration.class) // <-- use this to disable Cloud Functions altogether.
+@SpringBootApplication//(exclude = ContextFunctionCatalogAutoConfiguration.class) // <-- use this to disable Cloud Functions altogether.
 public class ReservationService {
 
   @Autowired 

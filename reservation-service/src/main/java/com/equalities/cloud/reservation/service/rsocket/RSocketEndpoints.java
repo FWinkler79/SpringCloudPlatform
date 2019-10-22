@@ -1,15 +1,14 @@
 package com.equalities.cloud.reservation.service.rsocket;
 
+import static com.equalities.cloud.reservation.service.rsocket.ReservationConfirmation.Status.BOOKED;
+
 import java.util.Map;
 
-import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.rsocket.RSocketRequester;
 import org.springframework.messaging.rsocket.annotation.ConnectMapping;
 import org.springframework.stereotype.Controller;
-
-import static com.equalities.cloud.reservation.service.rsocket.ReservationConfirmation.Status.*;
 
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
@@ -27,15 +26,13 @@ public class RSocketEndpoints {
     return Mono.empty();
   }
 
-  @MessageMapping("create.reservation.{version}")
+  @MessageMapping("create-reservation")
   public Mono<ReservationConfirmation> createReservation(
-      @DestinationVariable String version,            // Note: you can have dynamic parts inside the message mapping route.
       @Headers Map<String, Object> compositeMetadata, // Note: you can get access to the metadata of RSocket frames. (see: https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket-annot-messagemapping)
       CreateReservationRequest request,        
       RSocketRequester client) {                      // Note: the client can get injected and be used like a remote server (e.g. for asking back)
   
     log.info("Received request to create reservation from client: {}", client);
-    log.info("- requested version: {}", version);
     log.info("- request:           {}", request);
     log.info("- metadata headers:  {}", compositeMetadata);
     

@@ -20,6 +20,7 @@
   <properties>
     <java.version>11</java.version>
     <spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
+    <spring-cloud-gateway-rsocket.version>2.2.0.M3</spring-cloud-gateway-rsocket.version>
   </properties>
 
   <dependencies>
@@ -35,6 +36,8 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-rest</artifactId>
     </dependency>
+    
+    <!-- RSocket Dependencies, manually added, since they were removed from Spring Cloud Gateway. -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-rsocket</artifactId>
@@ -42,7 +45,28 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-gateway-rsocket-client</artifactId>
+      <version>${spring-cloud-gateway-rsocket.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-gateway-rsocket-common</artifactId>
+      <version>${spring-cloud-gateway-rsocket.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.rsocket</groupId>
+      <artifactId>rsocket-micrometer</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.roaringbitmap</groupId>
+      <artifactId>RoaringBitmap</artifactId>
+      <version>0.8.11</version>
+    </dependency>
+    <dependency>
+      <groupId>io.rsocket</groupId>
+      <artifactId>rsocket-transport-netty</artifactId>
+    </dependency>
+    <!-- End of RSocket Dependencies -->
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-webflux</artifactId>
@@ -51,18 +75,19 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-amqp</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-bus</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-stream-binder-rabbit</artifactId>
-    </dependency>
+<!-- Commented since they do not get along well with RSocket libs from above currently. -->
+<!--     <dependency> -->
+<!--       <groupId>org.springframework.boot</groupId> -->
+<!--       <artifactId>spring-boot-starter-amqp</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.springframework.cloud</groupId> -->
+<!--       <artifactId>spring-cloud-bus</artifactId> -->
+<!--     </dependency> -->
+<!--     <dependency> -->
+<!--       <groupId>org.springframework.cloud</groupId> -->
+<!--       <artifactId>spring-cloud-stream-binder-rabbit</artifactId> -->
+<!--     </dependency> -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -89,10 +114,8 @@
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
     </dependency>
-    <!-- 
-      Overridden dependencies, since the original ones were throwing errors. 
-      Remove these if you go up with Spring Cloud versions. 
-    -->
+    <!-- Overridden dependencies, since the original ones were throwing errors. 
+      Remove these if you go up with Spring Cloud versions. -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-sleuth-zipkin</artifactId>

@@ -1,7 +1,5 @@
 package com.equalities.cloud.rsocket.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
@@ -23,4 +21,3 @@ public class LeaseTestEndpoint {
     return Mono.empty();
   }
 }
-

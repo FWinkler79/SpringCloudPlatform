@@ -1,5 +1,7 @@
 package com.equalities.cloud.rsocket.client.health;
 
+import static java.time.Duration.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -9,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import com.equalities.cloud.rsocket.client.ServerConnection;
 
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.UnicastProcessor;
 
 /**
  * An endpoint that a server can call back to
@@ -44,33 +45,8 @@ public class HealthStatusReporter {
    * @return the stream of health events.
    */
   private Flux<HealthStatusMessage> createHealthStatusStream() {
-    UnicastProcessor<HealthStatusMessage> healthReporter = UnicastProcessor.create();
-    Flux<HealthStatusMessage> healthStatusStream = healthReporter.publish()
-                                                                 .autoConnect(); // start emitting as soon and as long as we have one subscriber to the stream.
-    generateHealthStatusMessages(healthReporter);
-    
-    return healthStatusStream;
-  }
-  
-  /**
-   * Plain and simple thread-based generation of {@link HealthStatusMessage} instances
-   * that are pumped into the stream of health events.
-   * @param healthReporter - the health status reporter to publish events to the stream.
-   */
-  private void generateHealthStatusMessages(UnicastProcessor<HealthStatusMessage> healthReporter) {
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        while(true) {
-          healthReporter.onNext(new HealthStatusMessage("UP"));
-          try {
-            Thread.sleep(2000);
-          } catch (InterruptedException e) {
-            logger.error("Interruption error.", e);
-          }
-        }
-      }
-    }).start(); 
+    return Flux.interval(ofSeconds(1))
+               .map( (tick) -> new HealthStatusMessage("UP"));
   }
 }
 

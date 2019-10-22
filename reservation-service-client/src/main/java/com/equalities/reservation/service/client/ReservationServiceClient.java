@@ -43,7 +43,6 @@ public class ReservationServiceClient {
 //        
 //                    .metadata(rsocketGatewayBrokerClient.forwarding(builder -> { 
 //                      builder.serviceName("reservation-service")
-//                             .with("version", "1.0")
 //                             .with("canary", "false");
 //                    }))
                     .data(request)

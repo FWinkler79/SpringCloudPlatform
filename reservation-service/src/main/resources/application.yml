@@ -30,8 +30,3 @@ spring:
           broker: # where to find the gateway RSocket broker
             host: localhost # TODO: inject from environment for Cloud deployments.
             port: 7002      # TODO: connect via websocket, not TCP.
-                
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka

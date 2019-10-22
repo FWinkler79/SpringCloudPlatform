@@ -26,7 +26,7 @@ public class RSocketEndpoints {
     return Mono.empty();
   }
 
-  @MessageMapping("create-reservation")
+  @MessageMapping("create.reservation")
   public Mono<ReservationConfirmation> createReservation(
       @Headers Map<String, Object> compositeMetadata, // Note: you can get access to the metadata of RSocket frames. (see: https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket-annot-messagemapping)
       CreateReservationRequest request,        

@@ -1,4 +1,3 @@
-package com.equalities.reservation.service.client;
 //package com.equalities.reservation.service.client;
 //
 //import org.junit.jupiter.api.Test;

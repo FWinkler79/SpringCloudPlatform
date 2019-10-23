@@ -20,7 +20,7 @@
   <properties>
     <java.version>11</java.version>
     <spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
-    <spring-cloud-gateway-rsocket.version>2.2.0.M3</spring-cloud-gateway-rsocket.version>
+    <spring-cloud-rsocket.version>0.2.0.BUILD-SNAPSHOT</spring-cloud-rsocket.version>
   </properties>
 
   <dependencies>
@@ -36,34 +36,16 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-rest</artifactId>
     </dependency>
-    
-    <!-- RSocket Dependencies, manually added, since they were removed from Spring Cloud Gateway. -->
+
+    <!-- RSocket Dependencies, manually added, since they were removed from 
+      Spring Cloud Gateway. -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-rsocket</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-gateway-rsocket-client</artifactId>
-      <version>${spring-cloud-gateway-rsocket.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-gateway-rsocket-common</artifactId>
-      <version>${spring-cloud-gateway-rsocket.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>io.rsocket</groupId>
-      <artifactId>rsocket-micrometer</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.roaringbitmap</groupId>
-      <artifactId>RoaringBitmap</artifactId>
-      <version>0.8.11</version>
-    </dependency>
-    <dependency>
-      <groupId>io.rsocket</groupId>
-      <artifactId>rsocket-transport-netty</artifactId>
+      <artifactId>spring-cloud-rsocket-client</artifactId>
     </dependency>
     <!-- End of RSocket Dependencies -->
 
@@ -75,19 +57,20 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
     </dependency>
-<!-- Commented since they do not get along well with RSocket libs from above currently. -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework.boot</groupId> -->
-<!--       <artifactId>spring-boot-starter-amqp</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework.cloud</groupId> -->
-<!--       <artifactId>spring-cloud-bus</artifactId> -->
-<!--     </dependency> -->
-<!--     <dependency> -->
-<!--       <groupId>org.springframework.cloud</groupId> -->
-<!--       <artifactId>spring-cloud-stream-binder-rabbit</artifactId> -->
-<!--     </dependency> -->
+    <!-- Commented since they do not get along well with RSocket libs from 
+      above currently. -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.springframework.boot</groupId> -->
+    <!-- <artifactId>spring-boot-starter-amqp</artifactId> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.springframework.cloud</groupId> -->
+    <!-- <artifactId>spring-cloud-bus</artifactId> -->
+    <!-- </dependency> -->
+    <!-- <dependency> -->
+    <!-- <groupId>org.springframework.cloud</groupId> -->
+    <!-- <artifactId>spring-cloud-stream-binder-rabbit</artifactId> -->
+    <!-- </dependency> -->
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
@@ -154,36 +137,18 @@
         <type>pom</type>
         <scope>import</scope>
       </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-rsocket-dependencies</artifactId>
+        <version>${spring-cloud-rsocket.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.asciidoctor</groupId>
-        <artifactId>asciidoctor-maven-plugin</artifactId>
-        <version>1.5.8</version>
-        <executions>
-          <execution>
-            <id>generate-docs</id>
-            <phase>prepare-package</phase>
-            <goals>
-              <goal>process-asciidoc</goal>
-            </goals>
-            <configuration>
-              <backend>html</backend>
-              <doctype>book</doctype>
-            </configuration>
-          </execution>
-        </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.springframework.restdocs</groupId>
-            <artifactId>spring-restdocs-asciidoctor</artifactId>
-            <version>${spring-restdocs.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>

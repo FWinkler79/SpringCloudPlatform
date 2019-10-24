@@ -1,0 +1,44 @@
+server:
+  port: ${PORT:7777}
+
+spring:
+  application:
+    name: service-gateway
+    
+  rsocket:
+    server:
+      mapping-path: /rsocketGateway
+      transport:    websocket
+    
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server # should come from environment
+        
+    gateway:
+      rsocket:
+        enabled: true                       # default is true
+        id: gateway                         # default is gateway
+        route-id: 1                         # Needs to be an integer :[
+        service-name: gateway               # default is gateway
+        micrometer-tags:                    # for metering support
+          - component                       # default is component
+          - gateway                         # default is gateway
+                
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+      
+      
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    description: "A gateway that acts as the entrance point to the micro-services landscape."
+
+logging:
+  level:
+    org.springframework.cloud.gateway.rsocket: DEBUG
+      

@@ -1,0 +1,43 @@
+#debug: true
+
+server:
+  port: ${PORT:9999}
+
+spring:
+  application:
+    name: reservation-service-client
+    
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server # should come from environment
+    gateway:
+      rsocket:
+        client:
+          service-name: reservation-service-client
+          route-id: 500
+          tags: # additional service metadata (similar to Eureka metadata tags)
+            instance_name: reservation-service-client-1
+            version: 1.0-RELEASE # version indicates that this is a release version instance.
+          broker: # where to find the gateway RSocket broker
+            ws-uri: http://localhost:7002/rsocketGateway
+            connection-type: websocket
+          forwarding:       # Routing / forwarding hints to the Gateway broker.
+            "[create.reservation.{vrsn}]":     # for routes pointed at "create.reservation.{version}" (note the fugly syntax, see: https://github.com/spring-cloud-incubator/spring-cloud-rsocket/issues/1) ...
+              service_name: reservation-service   # ... route the request to an instance of "reservation-service" ...
+              version:      "{vrsn}-RELEASE"      # ... whose "version" is 1.0-RELEASE. Note, that this can be used for 
+                                                  # canary routing, if changed to 1.0-CANARY!
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+      
+      
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    description: "A service that acts as a client to reservation-service."
+
+    

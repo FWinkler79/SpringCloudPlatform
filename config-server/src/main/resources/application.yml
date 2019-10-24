@@ -48,3 +48,14 @@ spring:
 #          - type: vault
 #            host: localhost
 #            port: 8200
+
+# Service Registry Client Configurations 
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka  # Should come from environment (using a 'cloud' profile)
+
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    description: "A central configuration server. It's configurations are located here: ${spring.cloud.config.server.composite[0].uri}"

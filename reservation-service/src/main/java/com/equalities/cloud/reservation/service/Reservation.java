@@ -9,7 +9,7 @@ import javax.persistence.Id;
  * to expose as a REST resource.
  */
 @Entity
-class Reservation {
+public class Reservation {
   @Id
   @GeneratedValue
   private Long id;

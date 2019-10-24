@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ReservationConfirmation {
   
-  enum Status {
+  public static enum Status {
     BOOKED,
     CANCELLED,
     REJECTED;

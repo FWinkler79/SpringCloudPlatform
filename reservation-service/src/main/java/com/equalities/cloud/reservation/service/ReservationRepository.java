@@ -18,7 +18,7 @@ import org.springframework.data.rest.core.annotation.RestResource;
  * You can even sort and page like this: http://host:port/reservations?page=1&size=2&sort=reservationName,asc
  */
 @RepositoryRestResource
-interface ReservationRepository extends JpaRepository<Reservation, Long> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
   /**
    * Finds a set of {@link Reservation}s by name. 

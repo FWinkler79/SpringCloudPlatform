@@ -1,0 +1,28 @@
+#debug: true
+
+server:
+  port: ${PORT:2222}
+
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    description: "A service to place and review reservations."
+   
+spring:
+  application:
+    name: reservation-service
+    
+  cloud:
+    gateway:
+      rsocket:
+        client:
+          service-name: reservation-service
+          route-id: 400
+          tags: # additional service metadata (similar to Eureka metadata tags)
+            instance_name: reservation-service-1
+            version: 1.0-RELEASE # version indicates that this is a release version instance (not a canary one).
+          broker: # where to find the gateway RSocket broker
+            host: localhost # TODO: inject from environment for Cloud deployments.
+            port: 7002      # TODO: connect via websocket, not TCP.
+          
+    

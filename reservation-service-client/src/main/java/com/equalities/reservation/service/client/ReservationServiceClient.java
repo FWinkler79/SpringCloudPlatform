@@ -36,7 +36,7 @@ public class ReservationServiceClient {
    * @return the Mono with the reservation confirmation.
    */
   public Mono<ReservationConfirmation> createReservation(CreateReservationRequest request) {
-    String version = "1.0";
+    String version = "2.0";
     return rsocketRequester.route("create.reservation.{vrsn}", version) 
 //                    // This is the programmatic way of influencing routing through metdata.
 //                    // The declarative way is shown in reservation-service-client.yml in 

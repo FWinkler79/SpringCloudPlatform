@@ -30,7 +30,9 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
-<!-- Commented since they do not get along well with the RSocket libraries below, currently. -->
+    
+<!-- Commented since they do not get along well with the RSocket libraries currently. -->
+
 <!--     <dependency> -->
 <!--       <groupId>org.springframework.boot</groupId> -->
 <!--       <artifactId>spring-boot-starter-amqp</artifactId> -->
@@ -43,8 +45,7 @@
 <!--       <groupId>org.springframework.cloud</groupId> -->
 <!--       <artifactId>spring-cloud-bus</artifactId> -->
 <!--     </dependency> -->
-    
-    <!-- RSocket Dependencies, manually added, since they were removed from Spring Cloud Gateway. -->
+
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-rsocket</artifactId>
@@ -53,33 +54,10 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-rsocket-client</artifactId>
     </dependency>
-    <!-- End of RSocket Dependencies -->
-    
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-config</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-zipkin</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <optional>true</optional>
-    </dependency>
-    <!-- 
-      Overridden dependencies, since the original ones were throwing errors.
-      Remove these if you go up with Spring Cloud versions.
-     -->
-     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-sleuth-zipkin</artifactId>
-      <version>2.2.0.M1</version>
     </dependency>
     <!-- Test dependencies -->
     <dependency>
@@ -97,12 +75,7 @@
       <groupId>io.projectreactor</groupId>
       <artifactId>reactor-test</artifactId>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.amqp</groupId>
-      <artifactId>spring-rabbit-test</artifactId>
-      <scope>test</scope>
-    </dependency>
+    </dependency>  
   </dependencies>
 
   <dependencyManagement>

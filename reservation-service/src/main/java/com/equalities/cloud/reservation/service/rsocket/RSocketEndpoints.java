@@ -7,6 +7,7 @@ import java.util.Map;
 import org.bouncycastle.crypto.engines.TnepresEngine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.rsocket.RSocketRequester;
@@ -49,14 +50,16 @@ public class RSocketEndpoints {
     return Mono.empty();
   }
 
-  @MessageMapping("create-reservation")
+  @MessageMapping("create.reservation.{vrsn}")
   public Mono<ReservationConfirmation> createReservation(
+      @DestinationVariable("vrsn") String version,    // Note: you can have dynamic values inside the route!
       @Headers Map<String, Object> compositeMetadata, // Note: you can get access to the metadata of RSocket frames. (see: https://docs.spring.io/spring/docs/5.2.0.RELEASE/spring-framework-reference/web-reactive.html#rsocket-annot-messagemapping)
       CreateReservationRequest request,        
       RSocketRequester client) {                      // Note: the client can get injected and be used like a remote server (e.g. for asking back)
   
     log.info("Received request to create reservation from client: {}", client);
     log.info("- request:           {}", request);
+    log.info("- version:           {}", version);
     log.info("- metadata headers:  {}", compositeMetadata);
     
     return Mono.fromCallable(() -> transactionTemplate.execute(status -> {

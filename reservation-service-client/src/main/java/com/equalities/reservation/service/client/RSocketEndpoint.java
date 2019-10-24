@@ -29,7 +29,7 @@ public class RSocketEndpoint {
     this.reservationServiceclient = reservationServiceclient;
   } 
   
-  @MessageMapping("client-make-reservation")
+  @MessageMapping("client.make.reservation")
   public Mono<ReservationConfirmation> makeReservation( @Headers Map<String, Object> compositeMetadata, 
                                                         String reservationName,        
                                                         RSocketRequester client) {                      

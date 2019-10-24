@@ -12,8 +12,9 @@ import reactor.core.publisher.Mono;
 @Component
 public class ReservationServiceClient {
 
-  private RSocketRequester rsocketRequester;
+  @SuppressWarnings("unused")
   private BrokerClient rsocketGatewayBrokerClient;
+  private RSocketRequester rsocketRequester;
   
   @Autowired
   public ReservationServiceClient(BrokerClient rsocketGatewayBrokerClient) {
@@ -35,7 +36,8 @@ public class ReservationServiceClient {
    * @return the Mono with the reservation confirmation.
    */
   public Mono<ReservationConfirmation> createReservation(CreateReservationRequest request) {
-    return rsocketRequester.route("create-reservation") 
+    String version = "1.0";
+    return rsocketRequester.route("create.reservation.{vrsn}", version) 
 //                    // This is the programmatic way of influencing routing through metdata.
 //                    // The declarative way is shown in reservation-service-client.yml in 
 //                    // https://github.com/FWinkler79/SpringCloudPlatform-Configs

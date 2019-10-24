@@ -188,6 +188,11 @@ This project was created with [Spring Starter](https://start.spring.io/) using t
 Note that the service URL (`http://localhost:2222/reservations?page=1&size=2&sort=reservationName,asc`) contains parameters for **sorting and paging** - all out of the box with [Spring Data](https://spring.io/projects/spring-data).
 There is also a "search by name" endpoint available. E.g. `http://localhost:2222/reservations/search/by-name?reservationName=Carl` will return only the reservations whose name is "Carl".
 
+The service provides its REST endpoints via WebFlux (i.e. in a reactive way).
+It also provides RSocket endpoints (see `com.equalities.cloud.reservation.service.rsocket.RSocketEndpoints`) which are called by *Reservation Service Client* via the *Service Gateway*.
+An RSocket endpoint to create reservations is exposed at route `create-reservation`, and incoming requests (including a reservation name) will trigger the persistence of a new `Reservation` object into an in-memory H2 database.
+Spring Data `JPARepository` is used for persistence, which is a blocking API. The code shows, how that blocking code can be turned into a (reactive) `Mono` and wrapped inside a transaction.
+
 # Reservation Service Client
 
 [Access in Browser](http://localhost:9999/healthStatus})
@@ -204,6 +209,25 @@ This project was created with [Spring Starter](https://start.spring.io/) using t
 * Spring Boot Actuator
 * RSocket
 * Lombok
+
+Reservation service client provides Web endpoints (see `WebEndpoints`) as well as RSocket endpoints (see `RSocketEndpoints`).
+The RSocket endpoint is currently not used, but could be called by a browser using `rsocket-js` to communicate RSocket all the way from the frontend to the backend.
+
+Reservation service client exposes a Web endpoint to retrieve a stream (`Flux`) of health status messages. This shows how easy it is with WebFlux to create long-living HTTP connections and stream back data from a service via HTTP.
+
+Another endpoint is exposed to create reservations via HTTP `PUSH` requests. The HTTP request is translated into an RSocket request, to call *Reservation Service*'s RSocket endpoint and tell it to persist the reservation.
+Commnunication happens via the *Service Gateway* which acts as an RSocket broker that both *Reservation Service* and *Reservation Service Client* connect to.
+
+To try this out, proceed as follows:
+1. start ZipKin (`./scripts/startZipkin.sh`)
+1. start RabbitMQ (`./scripts/startRabbit.sh`)
+1. start `service-registry`
+1. start `config-service`
+1. start `service-gateway`
+1. start `reservation-service`
+1. start `reservation-service-client`
+1. send a `POST` request to `http.//localhost:9999/reservation/create/<any name you like>` with an empty body.
+1. check that reservation was persisted by opening `reservation-service`'s endpoint `http://localhost:2222/reservations` and confirm that your name is there.
 
 # Service Gateway
 

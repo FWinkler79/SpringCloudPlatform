@@ -8,7 +8,7 @@ spring:
   # Activate the config-server 'composite' profile
   # so that it can load its own configs from Git.
   profiles:
-    active: composite
+    active: git, vault
     
   # Config Server Configurations
   cloud:
@@ -17,18 +17,19 @@ spring:
         # Load configurations of config-server itself from Git repository as well. 
         # See: https://cloud.spring.io/spring-cloud-config/reference/html/#_embedding_the_config_server
         bootstrap: true
-        composite:
-          # Hashicorp Vault repository for storage and reference of secrets / credentials.
-          - type: vault 
-            host: localhost
-            port: 8200
-            kvVersion: 2
+        # Hashicorp Vault repository for storage and reference of secrets / credentials.
+        vault:
+          authentication: TOKEN
+          token: root
+          host: localhost
+          port: 8200
+          kv-version: 2
           # GitHub repository for bootstrapping and runtime configurations
-          - type: git
-            uri: https://github.com/FWinkler79/SpringCloudPlatform-Configs.git
-            deleteUntrackedBranches: true
-            #For internal GitHub URIs:
-            #skipSslValidation: true
+        git:
+          uri: https://github.com/FWinkler79/SpringCloudPlatform-Configs.git
+          deleteUntrackedBranches: true
+          #For internal GitHub URIs:
+          #skipSslValidation: true
 
 # Alterntatives for 'spring.cloud.config.server.git' configurations:
 #

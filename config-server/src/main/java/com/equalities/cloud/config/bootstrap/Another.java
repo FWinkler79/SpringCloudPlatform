@@ -9,8 +9,8 @@ import org.springframework.core.env.Environment;
 @Configuration
 public class Another {
   
-  @Bean
-  public ConfigTokenProvider configTokenProvider(Environment environment) {
-    return new EnvironmentConfigTokenProvider(environment, "spring.cloud.config.server.vault.token");
-  }
+//  @Bean
+//  public ConfigTokenProvider configTokenProvider(Environment environment) {
+//    return new EnvironmentConfigTokenProvider(environment, "spring.cloud.config.server.vault.token");
+//  }
 }

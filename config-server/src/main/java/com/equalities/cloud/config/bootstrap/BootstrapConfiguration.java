@@ -19,15 +19,15 @@ public class BootstrapConfiguration {
 //    return new EnvironmentConfigTokenProvider(environment, "spring.cloud.config.server.vault.token");
 //  }
   
-  @Configuration(proxyBeanMethods = false)
-  protected static class DefaultConfigTokenProvider {
-
-    @Bean
-    @ConditionalOnMissingBean(ConfigTokenProvider.class)
-    public ConfigTokenProvider configTokenProvider(
-        ObjectProvider<HttpServletRequest> httpRequest) {
-      return new HttpRequestConfigTokenProvider(httpRequest);
-    }
-
-  }
+//  @Configuration(proxyBeanMethods = false)
+//  protected static class DefaultConfigTokenProvider {
+//
+//    @Bean
+//    @ConditionalOnMissingBean(ConfigTokenProvider.class)
+//    public ConfigTokenProvider configTokenProvider(
+//        ObjectProvider<HttpServletRequest> httpRequest) {
+//      return new HttpRequestConfigTokenProvider(httpRequest);
+//    }
+//
+//  }
 }

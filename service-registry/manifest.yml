@@ -1,0 +1,15 @@
+---
+applications:
+# -----------------------------------------------------------------------------------
+# Java Backend Service
+# -----------------------------------------------------------------------------------
+- name: ((service-name))
+  memory: 1024M
+  disk_quota: 512M
+  instances: 1
+  buildpacks:
+    - java_buildpack
+  path: ((service-binary-path))
+  
+  routes: 
+  - route: ((service-route-host)).((cf-domain))

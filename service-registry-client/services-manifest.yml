@@ -1,0 +1,14 @@
+---
+create-services:
+# NOTE: You need to have installed the CF-Create-Service-Push CLI Plugin for this file to be considered.
+# You can find the plugin here: https://github.com/dawu415/CF-CLI-Create-Service-Push-Plugin
+# Usually installation is very easy. Just call 'cf install-plugin Create-Service-Push'.
+# Once installed, instead of calling 'cf push' call 'cf create-service-push'. This will inspect this file 
+# create the services first and then call 'cf push' thus pushing your application as usual.
+# For more information please consult https://github.com/dawu415/CF-CLI-Create-Service-Push-Plugin/README.md
+
+# The name of the service instance will be used as specified in 'manifest-variables.yml'.
+# - name:   "<service name here>"
+#   broker: "<broker here>"
+#   plan:   "<service plan here>"
+

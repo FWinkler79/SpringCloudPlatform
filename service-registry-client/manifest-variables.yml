@@ -1,0 +1,6 @@
+---
+service-binary-path:         ./target/service-registry-client-0.0.1-SNAPSHOT.jar                       # the path to the service's Java binary. Used in manifest.yml's 'path' variable of Java backend service part.
+service-name:                service-registry-client                                                   # the name of the Java service in CF. Should be unique within CF space.
+service-route-host:          service-registry-client                                                   # the name to use as host part of the service's route. The route is concatenated in manifest.yml as https://((service-route-host)).((cfdomain)).
+cf-internal-domain:          internal.cfapps.sap.hana.ondemand.com                                     # the landscape-specific domain to use as part of the service route.
+service-registry-url:        https://ca-service-registry.internal.cfapps.sap.hana.ondemand.com/eureka  # Endpoint of service registry on CF.

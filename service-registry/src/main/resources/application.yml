@@ -1,3 +1,8 @@
+# Actuator Endpoint Configurations
+info: # /actuator/info
+  app:
+    description: "The service registry of the application."
+
 spring:
   application:
     name: service-registry
@@ -6,37 +11,49 @@ server:
   port: ${PORT:8761}
  
 eureka:
+  # For documentation of server configs, see: https://github.com/Netflix/eureka/blob/master/eureka-core/src/main/java/com/netflix/eureka/EurekaServerConfig.java, 
+  # For default values, see:                  https://github.com/Netflix/eureka/blob/f660f788e8309621186deee6ffe9425ab8243056/eureka-core/src/main/java/com/netflix/eureka/DefaultEurekaServerConfig.java 
+  server:                         
+    enable-self-preservation: true                 # Remove service instances that don't send heartbeats on time. Review this setting in a resilient setup. See: https://github.com/Netflix/eureka/wiki/Server-Self-Preservation-Mode
+    expected-client-renewal-interval-seconds:  2   # Make sure this is is set to the same value as the lease renewal interval in clients (or slightly higher)
+    eviction-interval-timer-in-ms:             2000
+    response-cache-auto-expiration-in-seconds: 2
+    renewal-threshold-update-interval-ms:      2000 # Default: 15 * 60 * 1000
+    renewal-percent-threshold:                 0.5  # Default: 0.85
   instance:
-    leaseRenewalIntervalInSeconds: 2  # only for local development. remove this setting in production and thus default to 30 seconds.
-    hostname: ${vcap.application.uris[0]:localhost}
-  client:
-    registerWithEureka: false
-    fetchRegistry:      false
-    serviceUrl:
+    lease-renewal-interval-in-seconds: 2           # Only for local development. remove this setting in production and thus default to 30 seconds.
+    ## This information will be part of the InstanceInfo returned by DiscoveryClient / EurekaClient.
+    ## Unfortunately, these have to be specified explicitly, since Eureka creates these URLs wrongly
+    ## when running on CF. 
+    ## See: https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html
+    hostname:                 ${vcap.application.uris[0]:localhost}
+    home-page-url:            https://${vcap.application.uris[0]:localhost}/   
+    status-page-url:          https://${vcap.application.uris[0]:localhost}/actuator/info
+    health-check-url:         https://${vcap.application.uris[0]:localhost}/actuator/health
+    secure-health-check-url:  https://${vcap.application.uris[0]:localhost}/actuator/health
+    metadata-map:  
+      # Adding information about the application GUID and app instance index to 
+      # each instance metadata. This could be used for setting the X-CF-APP-INSTANCE header
+      # to instruct Go-Router where to route.
+      cfAppGuid:       ${vcap.application.application_id:0}
+      cfInstanceIndex: ${INSTANCE_INDEX:0}
+  client:    
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 
 ---
 spring.profiles: cloud
 
 eureka:
+  server:
+    # make sure this is is set to the same value as the lease renewal interval in clients (or slightly higher)
+    expected-client-renewal-interval-seconds: 30
   instance:
-    leaseRenewalIntervalInSeconds: 30 # make sure in the cloud we use proper default values.
-    ## This information will be part of the InstanceInfo returned by DiscoveryClient / EurekaClient.
-    ## Unfortunately, these have to be specified explicitly, since Eureka creates these URLs wrongly
-    ## when running on CF. 
-    ## See: https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html
-    homePageUrl:          https://${vcap.application.uris[0]:localhost}/   
-    statusPageUrl:        https://${vcap.application.uris[0]:localhost}/actuator/info 
-    healthCheckUrl:       https://${vcap.application.uris[0]:localhost}/actuator/health
-    secureHealthCheckUrl: https://${vcap.application.uris[0]:localhost}/actuator/health
-    ## set the host name explicitly when in Cloud Foundry.
-    hostname:             ${vcap.application.uris[0]:localhost}
-    nonSecurePortEnabled: false
-    securePortEnabled:    true
-    securePort:           443
-    metadata-map:  
-      # Adding information about the application GUID and app instance index to 
-      # each instance metadata. This could be used for setting the X-CF-APP-INSTANCE header
-      # to instruct Go-Router where to route.
-      cfAppGuid:       ${vcap.application.application_id}
-      cfInstanceIndex: ${INSTANCE_INDEX}
+    # make sure in the cloud we use proper default values, 
+    # see: https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html#_why_is_it_so_slow_to_register_a_service
+    lease-renewal-interval-in-seconds: 30 
+    non-secure-port-enabled:           false
+    secure-port-enabled:               true
+    secure-port:                       443

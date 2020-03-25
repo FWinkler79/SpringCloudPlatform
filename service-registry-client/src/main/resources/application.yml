@@ -1,0 +1,62 @@
+---
+spring:
+  application:
+    name: service-registry-client
+
+server:
+  port: ${PORT:8762}
+
+eureka:
+  instance:
+    lease-renewal-interval-in-seconds: 2           # Only for local development. remove this setting in production and thus default to 30 seconds.
+  client: 
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+
+# Expose all actuator / management endpoints. Don't use this in production.
+management.endpoints.web.exposure.include: "*"
+
+# Expose all health information, also from Hystrix, Eureka and others.
+# See: https://docs.spring.io/spring-boot/docs/2.1.3.RELEASE/reference/htmlsingle/#production-ready-health 
+management.endpoint.health.show-details: always 
+
+# Enable implicit wrapping of FeignClient calls in Hystrix commands.
+# This is used by HystrixAddressServiceProxy.class and HystrixAddressServiceProxyWithException.class
+# See FeignAddressServiceClient.java for an example on how explicitly disable the implicit wrapping on a per-client basis.
+feign.hystrix.enabled: true                     
+
+# Adjust connection timeouts of Hystrix and Ribbon.
+# Make sure that Hystrix (the circuit breaker) times out later  
+# than Ribbon (the HTTP client) does. When Ribbon times out, it might
+# retry requests (if Spring Retry is on the classpath). These retries
+# should also be included into the Hystrix timeout. Only if Ribbon (and
+# all its retry attempts) have timed out, Hystrix should get active.
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 3500
+ribbon.ConnectTimeout: 1000 # timeout for establishing a connection.
+ribbon.ReadTimeout: 3000    # timeout for receiving data after connection is established.
+
+
+---
+spring.profiles: cloud
+
+eureka:
+  client: 
+    serviceUrl:
+      defaultZone: ${eureka-server-url}         # URL of the form https://<unique prefix>-eureka-server.cfapps.eu10.hana.ondemand.com/eureka
+                                                # Resolved from environment set in manifest.yml
+  instance: 
+    lease-renewal-interval-in-seconds: 30       # 30 seconds in production.
+    homePageUrl:          https://${vcap.application.uris[0]}/   
+    statusPageUrl:        https://${vcap.application.uris[0]}/actuator/info 
+    healthCheckUrl:       https://${vcap.application.uris[0]}/actuator/health
+    secureHealthCheckUrl: https://${vcap.application.uris[0]}/actuator/health
+    hostname:             ${vcap.application.uris[0]}
+    nonSecurePortEnabled: false
+    securePortEnabled:    true
+    securePort:           443
+    #nonSecurePort:       80
+    #preferIpAddress:     true
+    #metadataMap:
+    #  instanceId: ${vcap.application.instance_id:-}
+
+

@@ -60,7 +60,7 @@ eureka:
     renewal-threshold-update-interval-ms:      2000 # Default: 15 * 60 * 1000
     renewal-percent-threshold:                 0.5  # Default: 0.85
   instance:
-    lease-renewal-interval-in-seconds: 2           # Only for local development. remove this setting in production and thus default to 30 seconds.
+    lease-renewal-interval-in-seconds: 2       # Only for local development. remove this setting in production and thus default to 30 seconds.
 ```
 
 This means that...
@@ -71,7 +71,7 @@ This means that...
 With these settings, and a standalone Eureka, that has no clients connected, the `Current renewal threshold` should be 0.
 Reason: 0 clients = 0 expected renewals, 50% of 0 = 0.
 
-However, Eureka displays a current renewal threshold of 15, which in my opinion indicates two issues:
+However, Eureka displays a current renewal threshold of 15 per minute, which in my opinion indicates two issues:
 
 1. Eureka sees itself as a client
 2. Eureka ignores the `expected-client-renewal-interval-seconds` configuration set to two, and instead takes 30 (the default) as its value.

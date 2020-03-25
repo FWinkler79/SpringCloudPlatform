@@ -13,36 +13,87 @@ server:
 eureka:
   # For documentation of server configs, see: https://github.com/Netflix/eureka/blob/master/eureka-core/src/main/java/com/netflix/eureka/EurekaServerConfig.java, 
   # For default values, see:                  https://github.com/Netflix/eureka/blob/f660f788e8309621186deee6ffe9425ab8243056/eureka-core/src/main/java/com/netflix/eureka/DefaultEurekaServerConfig.java 
-  server:                         
-    enable-self-preservation: true                 # Remove service instances that don't send heartbeats on time. Review this setting in a resilient setup. See: https://github.com/Netflix/eureka/wiki/Server-Self-Preservation-Mode
-    expected-client-renewal-interval-seconds:  2   # Make sure this is is set to the same value as the lease renewal interval in clients (or slightly higher)
+  server:
+    # Switch off self-preservation. Will turn lease expiration on and evict all instances which no longer sent a heartbeat and whose lease has expired.
+    # Self-preservation is desirable for Eureka clusters and where network outages (e.g. between data centers) could be possible.
+    # Note: the lease validity / expiration is configured in the Eureka _client_ instances (see eureka.instance.lease-expiration-duration-in-seconds).
+    # See: https://github.com/Netflix/eureka/wiki/Server-Self-Preservation-Mode
+    # See: https://www.baeldung.com/eureka-self-preservation-renewal
+    enable-self-preservation: false
+  
+    # Make sure this is is set to the same value as the lease renewal interval in Eureka _client_ instances (or slightly higher)
+    # This value is relevant for Eureka's calculation of the 'current renewal threshold'.
+    # Specifically, the following equation is used: current renewal threshold = (60s / expected-client-renewal-interval-seconds) * renewal-percent-threshold * current number of client instances.
+    # In this case: 
+    # - for one registered client: 60 / 3 * 0.5 * 1 = 10.
+    # - for two registered clients: 60 / 3 * 0,5 * 2 = 20.
+    # As soon as two clients are connected: 
+    expected-client-renewal-interval-seconds:  3
+
+    # The interval in which the instance eviction task scans for instances with expired leases.
+    # Given in milliseconds.
     eviction-interval-timer-in-ms:             2000
-    response-cache-auto-expiration-in-seconds: 2
+
+    # The cadence of calculating / adapting a new renewal threshold, i.e. how frequently a new threshold is calculated.
+    # The renewal threshold is used to distinguish, when Eureka should go into self-preservation mode 
+    # (if eureka.server.enable-self-preservation: true). If less heartbeats than the threshold are received, Eureka assumes
+    # a network outage and protects itsel from evicting all service instances - assuming that the outage is over soon, and
+    # services are still there to continue sending heartbeats.
     renewal-threshold-update-interval-ms:      2000 # Default: 15 * 60 * 1000
+
+    # The minimum renewal threshold, in percent. If less heartbeats than the given percentage are received per minute
+    # Eureka will go into self-preservation mode (if eureka.server.enable-self-preservation: true) and stop evicting
+    # service instances with expired leases that no longer send heartbeats - assuming there is only a temporal network
+    # outage.
     renewal-percent-threshold:                 0.5  # Default: 0.85
+    
+    # see: https://github.com/Netflix/eureka/blob/master/eureka-core/src/main/java/com/netflix/eureka/EurekaServerConfig.java
+    #response-cache-auto-expiration-in-seconds: 2
+  
+  # Eureka client instance configurations.
   instance:
-    lease-renewal-interval-in-seconds: 2           # Only for local development. remove this setting in production and thus default to 30 seconds.
+    hostname:                                  ${vcap.application.uris[0]:localhost}
+    #registry: 
+      # Sets the initial renewal counter to 0, but causes issues when clients want to connect to refresh their caches.
+      #defaultOpenForTrafficCount:              0
+
+      # Does not have any noticable effect, so far.
+      #expectedNumberOfClientsSendingRenews:    0   
+
+    ###################################################################  
+    #### These settings are only relevant only for Eureka clients: ####
+    ###################################################################
+    #lease-renewal-interval-in-seconds:         2   # Set heartbeat cadence to 2 seconds. Only for local development. In production use default of 30 seconds.
+    #lease-expiration-duration-in-seconds:      5   # Set the lease validity to 5 seconds. If no heartbeat is received any sooner by the server, the instance lease expires and will be evicted. Default: 90s.
+
     ## This information will be part of the InstanceInfo returned by DiscoveryClient / EurekaClient.
     ## Unfortunately, these have to be specified explicitly, since Eureka creates these URLs wrongly
     ## when running on CF. 
     ## See: https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html
-    hostname:                 ${vcap.application.uris[0]:localhost}
-    home-page-url:            https://${vcap.application.uris[0]:localhost}/   
-    status-page-url:          https://${vcap.application.uris[0]:localhost}/actuator/info
-    health-check-url:         https://${vcap.application.uris[0]:localhost}/actuator/health
-    secure-health-check-url:  https://${vcap.application.uris[0]:localhost}/actuator/health
-    metadata-map:  
-      # Adding information about the application GUID and app instance index to 
-      # each instance metadata. This could be used for setting the X-CF-APP-INSTANCE header
-      # to instruct Go-Router where to route.
-      cfAppGuid:       ${vcap.application.application_id:0}
-      cfInstanceIndex: ${INSTANCE_INDEX:0}
+    #home-page-url:                     https://${vcap.application.uris[0]:localhost}/   
+    #status-page-url:                   https://${vcap.application.uris[0]:localhost}/actuator/info
+    #health-check-url:                  https://${vcap.application.uris[0]:localhost}/actuator/health
+    #secure-health-check-url:           https://${vcap.application.uris[0]:localhost}/actuator/health
+    #metadata-map:  
+      # Adding information about the CF application GUID and app instance index to 
+      # each instance metadata. This could be used for setting the X-CF-APP-INSTANCE 
+      # header to instruct Go-Router where to route.
+      #cfAppGuid:       ${vcap.application.application_id:0}
+      #cfInstanceIndex: ${INSTANCE_INDEX:0}
+
+  # Eureka client (library) configurations - for all client instances.
   client:    
     register-with-eureka: false
     fetch-registry: false
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 
+management:
+  endpoints:
+    web.exposure.include: "*"    # expose all actuator web endpoints
+  endpoint:
+    refresh.enabled: true        # enable /actuator/refresh endpoint.
+    health.show-details: always
 ---
 spring.profiles: cloud
 
@@ -51,9 +102,6 @@ eureka:
     # make sure this is is set to the same value as the lease renewal interval in clients (or slightly higher)
     expected-client-renewal-interval-seconds: 30
   instance:
-    # make sure in the cloud we use proper default values, 
-    # see: https://cloud.spring.io/spring-cloud-netflix/multi/multi__service_discovery_eureka_clients.html#_why_is_it_so_slow_to_register_a_service
-    lease-renewal-interval-in-seconds: 30 
     non-secure-port-enabled:           false
     secure-port-enabled:               true
     secure-port:                       443

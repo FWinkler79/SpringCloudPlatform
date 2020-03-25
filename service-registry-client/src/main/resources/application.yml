@@ -4,11 +4,19 @@ spring:
     name: service-registry-client
 
 server:
-  port: ${PORT:8762}
+  port: ${PORT:0}
 
 eureka:
   instance:
-    lease-renewal-interval-in-seconds: 2           # Only for local development. remove this setting in production and thus default to 30 seconds.
+    # Request a lease with a validity of 5 seconds. If until then the
+    # lease has not been renewed, it expires and the Eureka server can evict it.
+    # Default: 90s
+    lease-expiration-duration-in-seconds: 5
+
+    # The cadence of lease renewal, i.e. how often a heartbeat is sent to Eureka server.
+    # In this case every 2 seconds. Use this only for development / debugging. In production use the 
+    # Default: 30s
+    lease-renewal-interval-in-seconds:    2
   client: 
     serviceUrl:
       defaultZone: http://localhost:8761/eureka

@@ -215,19 +215,22 @@ The RSocket endpoint is currently not used, but could be called by a browser usi
 
 Reservation service client exposes a Web endpoint to retrieve a stream (`Flux`) of health status messages. This shows how easy it is with WebFlux to create long-living HTTP connections and stream back data from a service via HTTP.
 
-Another endpoint is exposed to create reservations via HTTP `PUSH` requests. The HTTP request is translated into an RSocket request, to call *Reservation Service*'s RSocket endpoint and tell it to persist the reservation.
-Commnunication happens via the *Service Gateway* which acts as an RSocket broker that both *Reservation Service* and *Reservation Service Client* connect to.
+❗️DEPRECATION WARNING: [Spring Cloud RSocket](https://github.com/spring-cloud-incubator/spring-cloud-rsocket) has been archived. What is described below is no longer officially available.
+You can checkout the tag [`working-spring-cloud-rsocket`](https://github.com/FWinkler79/SpringCloudPlatform/releases/tag/working-spring-cloud-rsocket) of this repository to see a working version (however with ancient Spring Boot and Spring Cloud versions).
 
-To try this out, proceed as follows:
-1. start ZipKin (`./scripts/startZipkin.sh`)
-1. start RabbitMQ (`./scripts/startRabbit.sh`)
-1. start `service-registry`
-1. start `config-service`
-1. start `service-gateway`
-1. start `reservation-service`
-1. start `reservation-service-client`
-1. send a `POST` request to `http.//localhost:9999/reservation/create/<any name you like>` with an empty body.
-1. check that reservation was persisted by opening `reservation-service`'s endpoint `http://localhost:2222/reservations` and confirm that your name is there.
+~~Another endpoint is exposed to create reservations via HTTP `PUSH` requests. The HTTP request is translated into an RSocket request, to call *Reservation Service*'s RSocket endpoint and tell it to persist the reservation.
+Commnunication happens via the *Service Gateway* which acts as an RSocket broker that both *Reservation Service* and *Reservation Service Client* connect to.~~
+
+~~To try this out, proceed as follows:~~
+1. ~~start ZipKin (`./scripts/startZipkin.sh`)~~
+2. ~~start RabbitMQ (`./scripts/startRabbit.sh`)~~
+3. ~~start `service-registry`~~
+4. ~~start `config-service`~~
+5. ~~start `service-gateway`~~
+6. ~~start `reservation-service`~~
+7. ~~start `reservation-service-client`~~
+8. ~~send a `POST` request to `http.//localhost:9999/reservation/create/<any name you like>` with an empty body.~~
+9. ~~check that reservation was persisted by opening `reservation-service`'s endpoint `http://localhost:2222/reservations` and confirm that your name is there.~~
 
 # Service Gateway
 
@@ -244,13 +247,19 @@ This project was created with [Spring Starter](https://start.spring.io/) using t
 * Zipkin Client
 * Lombok
 
-And we manually added the RSocket gateway broker, which at the time of writing was in technical preview stage and not yet available via Spring starter.io:
+❗️DEPRECATION WARNING: [Spring Cloud RSocket](https://github.com/spring-cloud-incubator/spring-cloud-rsocket) has been archived. What is described below is no longer officially available.
+You can checkout the tag [`working-spring-cloud-rsocket`](https://github.com/FWinkler79/SpringCloudPlatform/releases/tag/working-spring-cloud-rsocket) of this repository to see a working version (however with ancient Spring Boot and Spring Cloud versions).
+
+~~And we manually added the RSocket gateway broker, which at the time of writing was in technical preview stage and not yet available via Spring starter.io:~~
 
 ```xml
+<!-- No longer officially available -->
+<!--
 <dependency>
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-gateway-rsocket-broker</artifactId>
 </dependency>
+-->
 ```
 
 # Diagnostics Service

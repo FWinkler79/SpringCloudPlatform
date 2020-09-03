@@ -377,6 +377,16 @@ In case you only want to see the milestones and release candidates you can use t
 * [Aeron Protocol](https://github.com/real-logic/aeron/wiki) | [Blog Post](https://medium.com/@pirogov.alexey/aeron-low-latency-transport-protocol-9493f8d504e8)
 * [RSocket CLI](https://github.com/rsocket/rsocket-cli) (great for debugging and running RSocket servers easily. See also [RSocket Support in Spring 5.2 Video](https://www.youtube.com/watch?v=iSSrZoGtoSE) for usage)
 
+**Spring Boot RSocket Blog Series** (Excellent!)
+* [Getting Started With RSocket Spring Boot: Server](https://spring.io/blog/2020/03/02/getting-started-with-rsocket-spring-boot-server)
+* [Getting Started with RSocket Spring Boot: Client](https://spring.io/blog/2020/03/09/getting-started-with-rsocket-spring-boot-client)
+* [Getting Started with RSocket Spring Boot: Fire And Forget](https://spring.io/blog/2020/03/16/getting-started-with-rsocket-spring-boot-fire-and-forget)
+* [Getting Started with RSocket Spring Boot: Request Stream](https://spring.io/blog/2020/03/23/getting-started-with-rsocket-spring-boot-request-stream)
+* [Getting Started with RSocket Spring Boot: Channels](https://spring.io/blog/2020/04/06/getting-started-with-rsocket-spring-boot-channels)
+* [Getting Started with RSocket Spring Boot: Servers Calling Clients](https://spring.io/blog/2020/05/12/getting-started-with-rsocket-servers-calling-clients)
+* [Getting Started with RSocket Spring Boot: Testing Spring Boot Responders](https://spring.io/blog/2020/05/25/getting-started-with-rsocket-testing-spring-boot-responders)
+* [Getting Started with RSocket Spring Boot: Spring Security](https://spring.io/blog/2020/06/17/getting-started-with-rsocket-spring-security)
+
 **Reactive Programming**
 * [Understanding Reactive Types](https://spring.io/blog/2016/04/19/understanding-reactive-types)
 * [Reactive Streams](https://www.reactive-streams.org)

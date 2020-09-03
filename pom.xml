@@ -1,26 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<groupId>com.equalities.cloud</groupId>
-	<artifactId>root</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	
-	<name>Root POM</name>
-	<description>The aggregator POM of the Spring Cloud Platform Projects</description>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<modules>
-		<module>config-server</module>
-		<module>service-registry</module>
-		<module>greetings-service</module>
-		<module>reservation-service</module>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.3.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <groupId>com.equalities.cloud</groupId>
+  <artifactId>root</artifactId>
+  <version>${revision}</version>
+  <packaging>pom</packaging>
+
+  <name>Root POM</name>
+  <description>The aggregator POM of the Spring Cloud Platform Projects</description>
+
+  <properties>
+    <revision>0.0.1-SNAPSHOT</revision>
+    <java.version>11</java.version>
+    <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+    <!-- <spring-cloud-rsocket.version>0.2.0.BUILD-SNAPSHOT</spring-cloud-rsocket.version> -->
+  </properties>
+
+  <modules>
+    <module>config-server</module>
+    <module>service-registry</module>
+    <module>greetings-service</module>
+    <module>reservation-service</module>
     <module>reservation-service-client</module>
-		<module>service-gateway</module>
-		<module>diagnostics-service</module>
-		<module>rsocket-server</module>
-		<module>rsocket-client</module>
-	</modules>
+    <module>service-gateway</module>
+    <module>diagnostics-service</module>
+    <module>rsocket-server</module>
+    <module>rsocket-client</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+<!--       <dependency> -->
+<!--         <groupId>org.springframework.cloud</groupId> -->
+<!--         <artifactId>spring-cloud-rsocket-dependencies</artifactId> -->
+<!--         <version>${spring-cloud-rsocket.version}</version> -->
+<!--         <type>pom</type> -->
+<!--         <scope>import</scope> -->
+<!--       </dependency> -->
+    </dependencies>
+  </dependencyManagement>
+
+  <repositories>
+    <repository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/milestone</url>
+    </repository>
+    <repository>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>spring-snapshots</id>
+      <name>Spring Snapshots</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </pluginRepository>
+    <pluginRepository>
+      <id>spring-milestones</id>
+      <name>Spring Milestones</name>
+      <url>https://repo.spring.io/milestone</url>
+    </pluginRepository>
+  </pluginRepositories>
 
 </project>

@@ -1,7 +1,5 @@
 package com.equalities.reservation.service.client;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.gateway.rsocket.client.BrokerClient;
 import org.springframework.context.PayloadApplicationEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.messaging.rsocket.RSocketRequester;
@@ -12,14 +10,7 @@ import reactor.core.publisher.Mono;
 @Component
 public class ReservationServiceClient {
 
-  @SuppressWarnings("unused")
-  private BrokerClient rsocketGatewayBrokerClient;
   private RSocketRequester rsocketRequester;
-  
-  @Autowired
-  public ReservationServiceClient(BrokerClient rsocketGatewayBrokerClient) {
-    this.rsocketGatewayBrokerClient = rsocketGatewayBrokerClient;
-  }
   
   @EventListener
   public void injectRSocketRequester(PayloadApplicationEvent<RSocketRequester> rsocketConnectionEstablishedEvent) {

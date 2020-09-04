@@ -412,6 +412,7 @@ In case you only want to see the milestones and release candidates you can use t
 
 **Distributed Tracing & Metrics**
 * [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
+* [Distributed Tracing: Latency Analysis for Your Microservices](https://www.youtube.com/watch?v=Vdwn7LvIPl0)
 * [Open Tracing Initiative](https://github.com/opentracing)
 * [Distributed Tracing with Spring Cloud Sleuth and Spring Cloud Zipkin](https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin)
 * [Micrometer - Spring Boot 2's new metics collector](https://spring.io/blog/2018/03/16/micrometer-spring-boot-2-s-new-application-metrics-collector) (also nice distinction between tracing and metrics)

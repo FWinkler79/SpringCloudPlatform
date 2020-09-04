@@ -15,8 +15,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.equalities.cloud.reservation.service.rsocket.ReservationConfirmation;
 
+import brave.Span;
+import brave.Tracer;
+
 @Controller
 public class ReservationServiceEndpoint {
+  
+  @Autowired
+  private Tracer tracer;
 
   @Autowired
   private TransactionTemplate transactionTemplate;
@@ -40,7 +46,9 @@ public class ReservationServiceEndpoint {
     
     @Override
     public ReservationConfirmation doInTransaction(TransactionStatus status) {
+      Span span = tracer.nextSpan().name("saving-reservation").start();
       reservationRepository.save(new Reservation(reservationName));
+      span.finish();
       return new ReservationConfirmation(reservationName, BOOKED);
     }
   }

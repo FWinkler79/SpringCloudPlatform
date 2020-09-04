@@ -1,6 +1,6 @@
 package com.equalities.reservation.service.client;
 
-import static java.time.Duration.*;
+import static java.time.Duration.ofSeconds;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import brave.Span;
+import brave.Tracer;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 /**
@@ -19,6 +21,9 @@ import reactor.core.publisher.Mono;
  */
 @Controller
 public class WebEndpoint {
+  
+  @Autowired
+  private Tracer tracer;
 
   @Autowired
   private ReservationServiceWebClient reservationServiceWebClient;
@@ -39,7 +44,13 @@ public class WebEndpoint {
   @PostMapping("/reservation/http/create/{reservationName}")
   @ResponseBody
   public Mono<ReservationConfirmation> makeReservationHttp(@PathVariable String reservationName) {
-    return reservationServiceWebClient.createReservation(reservationName);
+    Span span = tracer.nextSpan().name("create-reservation-http").start();
+    
+    Mono<ReservationConfirmation> reservationPromise = reservationServiceWebClient.createReservation(reservationName);
+    
+    return reservationPromise.doFinally((signal) -> {
+        span.finish();
+    });
   }
   
   @GetMapping("/healthStatus")

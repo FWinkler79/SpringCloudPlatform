@@ -409,7 +409,7 @@ In case you only want to see the milestones and release candidates you can use t
 * [Notes on Reactive Programming (Part 1) - The Reactive Landscape](https://spring.io/blog/2016/06/07/notes-on-reactive-programming-part-i-the-reactive-landscape) | [Notes on Reactive Programming (Part 2) - Writing Some Code](https://spring.io/blog/2016/06/13/notes-on-reactive-programming-part-ii-writing-some-code)
 * [Reactive Databases](https://r2dbc.io/)
 
-**Dristributed Tracing**
+**Distributed Tracing & Metrics**
 * [Distributed Tracing with Zipkin](https://www.youtube.com/watch?v=f9J1Av8rwCE)
 * [Open Tracing Initiative](https://github.com/opentracing)
 * [Distributed Tracing with Spring Cloud Sleuth and Spring Cloud Zipkin](https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin)

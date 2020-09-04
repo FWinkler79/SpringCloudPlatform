@@ -20,17 +20,26 @@ import reactor.core.publisher.Mono;
 @Controller
 public class WebEndpoint {
 
-  private ReservationServiceClient reservationServiceClient;
+  @Autowired
+  private ReservationServiceWebClient reservationServiceWebClient;
+  
+  private ReservationServiceRSocketClient reservationServiceRSocketClient;
   
   @Autowired
-  public WebEndpoint(ReservationServiceClient reservationServiceClient) {
-    this.reservationServiceClient = reservationServiceClient;
+  public WebEndpoint(ReservationServiceRSocketClient reservationServiceClient) {
+    this.reservationServiceRSocketClient = reservationServiceClient;
   }
   
-  @PostMapping("/reservation/create/{reservationName}")
+  @PostMapping("/reservation/rsocket/create/{reservationName}")
   @ResponseBody
-  public Mono<ReservationConfirmation> makeReservation(@PathVariable String reservationName) {
-    return reservationServiceClient.createReservation(new CreateReservationRequest(reservationName));
+  public Mono<ReservationConfirmation> makeReservationRSocket(@PathVariable String reservationName) {
+    return reservationServiceRSocketClient.createReservation(new CreateReservationRequest(reservationName));
+  }
+  
+  @PostMapping("/reservation/http/create/{reservationName}")
+  @ResponseBody
+  public Mono<ReservationConfirmation> makeReservationHttp(@PathVariable String reservationName) {
+    return reservationServiceWebClient.createReservation(reservationName);
   }
   
   @GetMapping("/healthStatus")

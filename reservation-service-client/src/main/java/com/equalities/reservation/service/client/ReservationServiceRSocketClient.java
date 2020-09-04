@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class ReservationServiceClient {
+public class ReservationServiceRSocketClient {
 
   private RSocketRequester rsocketRequester;
   
@@ -29,7 +29,7 @@ public class ReservationServiceClient {
   public Mono<ReservationConfirmation> createReservation(CreateReservationRequest request) {
     String version = "1.0";
     return rsocketRequester.route("create.reservation.{vrsn}", version) 
-//                    // This is the programmatic way of influencing routing through metdata.
+//                    // This is the programmatic way of influencing routing through metadata.
 //                    // The declarative way is shown in reservation-service-client.yml in 
 //                    // https://github.com/FWinkler79/SpringCloudPlatform-Configs
 //        

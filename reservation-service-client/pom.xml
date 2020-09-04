@@ -63,6 +63,15 @@
       <artifactId>spring-cloud-starter-zipkin</artifactId>
     </dependency>
     
+    <!-- Reactive Feign Client: https://github.com/Playtika/feign-reactive -->
+    <!-- Sample: https://github.com/kptfh/feign-reactive-sample/tree/master/feign/src/main/java/sample -->
+    <dependency>
+      <groupId>com.playtika.reactivefeign</groupId>
+      <artifactId>feign-reactor-spring-cloud-starter</artifactId>
+      <version>2.0.15</version>
+      <type>pom</type>
+    </dependency>
+    
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>

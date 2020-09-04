@@ -22,17 +22,17 @@ import reactor.core.publisher.Mono;
 @Controller
 public class RSocketEndpoint {
 
-  private ReservationServiceClient reservationServiceclient;
+  private ReservationServiceRSocketClient reservationServiceclient;
   
   @Autowired
-  public RSocketEndpoint(ReservationServiceClient reservationServiceclient) {
+  public RSocketEndpoint(ReservationServiceRSocketClient reservationServiceclient) {
     this.reservationServiceclient = reservationServiceclient;
   } 
   
   @MessageMapping("client.make.reservation")
   public Mono<ReservationConfirmation> makeReservation( @Headers Map<String, Object> compositeMetadata, 
                                                         String reservationName,        
-                                                        RSocketRequester client) {                      
+                                                        RSocketRequester client) {
   
     log.info("Received request to create reservation from client: {}", client);
     log.info("- reservation name:  {}", reservationName);

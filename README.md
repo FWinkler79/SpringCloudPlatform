@@ -55,7 +55,7 @@ This will pull and start a Zipkin server container and once it is started you ca
 
 As services will be making requests and logging traces, you will see them in the Zipkin UI. This allows you not only to see which requests are being sent and received but also how long they took and if they were successful or not.
 
-Note, that Spring Cloud Sleuth and Zipkin also work for message-based communication, e.g. using RabbitMQ. See the Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/2.1.3.RELEASE/single/spring-cloud-sleuth.html#_sleuth_with_zipkin_over_rabbitmq_or_kafka) documentation for details.
+Note, that Spring Cloud Sleuth and Zipkin also work for message-based communication, e.g. using RabbitMQ. See the [Spring Cloud Sleuth](https://cloud.spring.io/spring-cloud-static/spring-cloud-sleuth/2.1.3.RELEASE/single/spring-cloud-sleuth.html#_sleuth_with_zipkin_over_rabbitmq_or_kafka) documentation for details.
 
 See also: 
 * [Distributed Tracing with Spring Cloud Sleuth and Spring Cloud Zipkin](https://spring.io/blog/2016/02/15/distributed-tracing-with-spring-cloud-sleuth-and-spring-cloud-zipkin)
